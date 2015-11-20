@@ -1,7 +1,25 @@
-# TODO symlink this into ~/.config/i3/config?
 # TODO startup notifications?
 # TODO it is possible to mark windows like lines in vim - investigate further - documentation is unclear
 # TODO closing lid does nothing when powered, but suspends otherwise.
+
+# TODO Update the below and add charts for chords
+# ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
+# │     │  w1 │  w2 │  w3 │  w4 │  w5 │  w6 │  w7 │  w8 │  w9 │  w10│     │     ┃          ┃
+# │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
+# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┯━━━━━━━┩
+# ┃        ┃     │close│     │rsize│     │     │ prev│ next│split│start│     │ }   │ |     │
+# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   │ \     │
+# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┪
+# ┃         ┃ tab │stack│ div.│ full│     │     │focus│focus│focus│focus│     ┃New Terminal┃
+# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h   │ j ← │ k ↓ │ l ↑ │ ; → │ '   ┃ ⏎          ┃
+# ┣━━━━━━━━━┻━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┻━━━━━━━━━━━━┫
+# ┃            ┃     │     │     │     │bordr│     │     │     │     │     ┃               ┃
+# ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
+# ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
+# ┃       ┃ *mod* ┃       ┃         tiling/floating toggle ┃       ┃       ┃       ┃       ┃
+# ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
+# ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
+
 
 # ------------
 # Syntax Notes
@@ -9,7 +27,7 @@
 # Comments can only be used at the start of lines
 # Chain commands with ';' or ','
 #     - Criteria apply only until the next semicolon
-# px arg is used for floating containers; ppt is percentage points for tiling container
+# px arg is used for floating containers; ppt is percentage points for tiling containers
 # Use --no-startup-id because i3 is a command-line utility and does not support startup notifications
 # exec commands will be performed by i3 on initial startup
 # exec_always will also run when restarting i3
@@ -104,6 +122,8 @@ mode "resize" {
     bindsym Shift+l resize shrink up $resize_amount
     bindsym Shift+semicolon resize shrink left $resize_amount
 
+    # TODO control variants that resize by 10x?
+
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -145,6 +165,7 @@ set $ws_9 "9: spotify"
 set $ws_10 "10"
 
 # Switch workspaces.
+# TODO have shortcuts to named workspaces
 bindsym $mod+1 workspace $ws_1
 bindsym $mod+2 workspace $ws_2
 bindsym $mod+3 workspace $ws_3
@@ -172,11 +193,11 @@ bindsym $mod+Shift+0 move container to workspace $ws_10, workspace $ws_10
 bindsym $mod+Shift+comma move container to workspace prev, workspace prev
 bindsym $mod+Shift+period move container to workspace next, workspace prev
 
-bindsym $mod+Control+semicolon move container to output right
-bindsym $mod+Control+j move container to output left
+bindsym $mod+Control+semicolon move container to output right, focus output right
+bindsym $mod+Control+j move container to output left, focus output left
 
-bindsym $mod+Shift+Control+semicolon move workspace to output right
-bindsym $mod+Shift+Control+j move workspace to output left
+bindsym $mod+Shift+Control+semicolon move workspace to output right, focus output right
+bindsym $mod+Shift+Control+j move workspace to output left, focus output left
 
 
 
@@ -203,15 +224,12 @@ bindsym XF86AudioLowerVolume exec amixer -D pulse set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -D pulse set Master toggle
 
 # Pause/Play/Next/Previous
-bindsym XF86AudioPlay exec dbus-send --print-reply \
-    --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym XF86AudioPrev exec dbus-send --print-reply \
     --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym XF86AudioPlay exec dbus-send --print-reply \
+    --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym XF86AudioNext exec dbus-send --print-reply \
     --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-
-
-
 
 # bindsym thing [instance="blah"] scratchpad show
 
@@ -227,15 +245,20 @@ bindsym XF86AudioNext exec dbus-send --print-reply \
 # for_window [isntace=blah] sticky enable
 
 
-#set $mode_system System (l) lock, (e) logout, (r) reboot, (Shift+s) shutdown
-#bindsym $mod+Escape mode "$mode_system"
-#mode "$mode_system" {
-#    bindsym l exec --no-startup-id ~/.i3/scripts/i3-mode-system.sh lock, mode "default"
-#    bindsym e exec --no-startup-id ~/.i3/scripts/i3-mode-system.sh logout, mode "default"
-#    bindsym r exec --no-startup-id ~/.i3/scripts/i3-mode-system.sh reboot, mode "default"
-#    bindsym Shift+s exec --no-startup-id ~/.i3/scripts/i3-mode-system.sh shutdown, mode "default"
-#
-#    # back to normal: Enter or Escape
-#    bindsym Return mode "default"
-#    bindsym Escape mode "default"
-#}
+set $mode_system System (l) lock, (e) logout, (h) hibernate, (s) suspend, (r) reboot, (p) power-off
+bindsym $mod+Escape mode "$mode_system"
+mode "$mode_system" {
+    set $exec_mode_system_script exec --no-startup-id ~/etc/i3/scripts/mode-system.sh
+    set $exit_mode_system mode "default"
+
+    bindsym l $exec_mode_system_script lock, $exit_mode_system
+    bindsym e $exec_mode_system_script logout, $exit_mode_system
+    bindsym h $exec_mode_system_script hibernate, $exit_mode_system
+    bindsym s $exec_mode_system_script suspend, $exit_mode_system
+    bindsym r $exec_mode_system_script reboot, $exit_mode_system
+    bindsym p $exec_mode_system_script poweroff, $exit_mode_system
+
+    # back to normal: Enter or Escape
+    bindsym Return $exit_mode_system
+    bindsym Escape $exit_mode_system
+}
