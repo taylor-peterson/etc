@@ -1,0 +1,19 @@
+[com.canonical.indicator.sound.AccountsService]
+PlayerName=''
+Timestamp=0
+Title=''
+Artist=''
+Album=''
+ArtUrl=''
+PlayerIcon=<('themed', <['application-default-icon', 'application-default', 'application']>)>
+Running=true
+State='Paused'
+
+[InputSource0]
+xkb=us
+
+[User]
+XSession=i3
+Background=/usr/share/xfce4/backdrops/xubuntu-wallpaper.png
+Icon=/var/lib/AccountsService/icons/taylor
+SystemAccount=false

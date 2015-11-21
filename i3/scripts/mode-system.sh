@@ -2,7 +2,7 @@
 
 #TODO lockscreen doesn't match login screen.
 lock_screen() {
-    gnome-screensaver-command --lock
+    dm-tool lock
 }
 
 # $1 - the new state you would like to enter.

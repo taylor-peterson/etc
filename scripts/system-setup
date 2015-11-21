@@ -12,3 +12,7 @@ git config --global user.email "tayloredwardpeterson@gmail.com"
 git config --global user.name "Taylor Peterson"
 
 ln -s ~/etc/i3/config ~/.config/i3/config
+ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-greeter-ubuntu.conf
+ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
+ln -s ~/etc/accounts-service/taylor /var/lib/AccountsService/users/taylor
+ln -s ~/etc/accounts-service/icons /var/lib/AccountsService/icons/taylor
