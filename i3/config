@@ -69,7 +69,16 @@ exec_always --no-startup-id feh --bg-scale ~/Pictures/ubuntu-blue-1440x900.jpg
 bindsym $mod+Return exec i3-sensible-terminal
 
 # Start program launcher
-bindsym $mod+d exec dmenu_run
+# Colors are based on default workspace colors for i3.
+# Note that bg-active only works when the active window:
+#     https://github.com/DaveDavenport/rofi/issues/294.
+set $rofi_options -bg "#222222" -bg-active "#1b3a51" bg-urgent "#900000" \
+                  -fg "#888888" -fg-active "#ffffff" fg-urgent "#ffffff" \
+                  -hlbg "#285577" -hlbg-active "#285577" -hlbg-urgent "#285577" \
+                  -hlfg "#ffffff" -hlfg-active "#ffffff" -hlfg-urgent "#ffffff" \
+                  -bc "#333333"
+bindsym $mod+w exec --no-startup-id rofi -show window $rofi_options
+bindsym $mod+d exec --no-startup-id rofi -show run $rofi_options -location 2 -lines 5
 
 # TODO - test
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
@@ -138,7 +147,7 @@ bindsym $mod+f fullscreen
 # change container layout (stacked, tabbed, toggle split)
 # TODO: get rid of stacking? tabbed?
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
