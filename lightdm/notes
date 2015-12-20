@@ -1,0 +1,3 @@
+#hange ubuntu to i3 (see if that changes default desktop environment
+#edit /var/lib/AccountsService/users/taylor
+#swap /var/lib/AccountsService/icons/taylor for something else (needs 644 permissions, 96x96 png image file but without .png)
