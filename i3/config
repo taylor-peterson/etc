@@ -135,8 +135,8 @@ mode "resize" {
 }
 
 # Change how focused container should splits. For h, think -; for v think |.
-bindsym $mod+h split h
-bindsym $mod+v split v
+bindsym $mod+h split horizontal
+bindsym $mod+v split vertical
 
 # Enter fullscreen mode.
 bindsym $mod+f fullscreen

@@ -1,6 +1,8 @@
 call plug#begin()
 Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace.
+
+Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
 call plug#end()
 
 
