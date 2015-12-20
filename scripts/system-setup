@@ -13,14 +13,22 @@ URL='http://ankisrs.net/download/mirror/anki-2.0.33.deb'
 FILE=`mktemp`
 wget "$URL" -O $FILE
 sudo dpkg -i $FILE
-rm $FILE 
+rm $FILE
 sudo apt-get -f --force-yes --yes install # Will install missing dependencies
 
 git config --global user.email "tayloredwardpeterson@gmail.com"
 git config --global user.name "Taylor Peterson"
+
+sudo apt-get install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+cd ~/bin
+git clone https://github.com/neovim/neovim.git
+cd neovim
+make
+sudo make install
 
 ln -s ~/etc/i3/config ~/.config/i3/config
 ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-greeter-ubuntu.conf
 ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 ln -s ~/etc/accounts-service/taylor /var/lib/AccountsService/users/taylor
 ln -s ~/etc/accounts-service/icons /var/lib/AccountsService/icons/taylor
+ln -s ~/etc/nvim/init.vim ~/.config/nvim/init.vim
