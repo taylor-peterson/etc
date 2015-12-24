@@ -1,5 +1,6 @@
 [user]
 	name = Taylor Peterson
+    email = tayloredwardpeterson@gmail.com
 
 [color]
     # default: auto colors output to terminal, but omits color-control codes to pipe or file
@@ -7,8 +8,8 @@
 
 [core]
 	pager = less -FMRiX
-	editor = vim
-	excludesfile = ~/.gitignore
+	editor = nvim
+	excludesfile = ~/etc/git/gitignore
 
 [alias]
 	dag = log --graph --decorate --all --oneline
