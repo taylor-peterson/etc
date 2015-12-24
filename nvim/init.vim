@@ -1,3 +1,21 @@
+" set nocompatible by default, right?
+" Poss plugins:
+"   scrooloose/nerdtree
+"   majutshushi/tagbar
+"   tpope/vim-fugitive
+"   tpope/vim-git
+"   autoclose
+"   SirVer/ultisnips
+"   vim-snippets
+"   vim-surround
+"   Lokaltog/vim-powerline
+"   kien/ctrlp
+"   jcf/vim-latex
+"   scrooloose/syntastic
+"   nelstrom/vim-visual-star-search
+" 
+
+
 call plug#begin()
 " Informational display:
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace (nominally not in insert mode).
@@ -91,3 +109,78 @@ if &diff
 endif
 
 autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
+
+
+
+"syntax on                 " Syntax highlighting! Yay!
+"set laststatus=2          " Always have status bar
+"set scrolloff=1           " Dont let the curser get too close to the edge
+"set showcmd               " Show (partial) command in status line
+"set showmatch             " Show matching brackets
+"set bsdir=last            " Last accessed directory is default working directory
+"match Todo /\s\+$/        " Highlight trailing whitespace
+"
+"
+"
+"" Vim Buffer
+""""""""""""""""""""""""""""""""""""""""
+"" This allows copying to and pasting from system clipboard.
+"noremap ty "+y            " Select desired contents then press ty
+"noremap tY "+Y            " Just press tY to yank entire line to clipboard
+"noremap td "+d            " Select desired contents then press td
+"noremap tD "+D            " Just press tY to delete entire line to clipboard
+"noremap tp "+p            " Put the text from clipboard after the cursor
+"noremap tP "+P            " Put the text from clipboard before the cursor
+"
+"
+""""""""""""""""""""""""""""""""""""""""
+"" Tabs and Indenting
+""""""""""""""""""""""""""""""""""""""""
+"set backspace=2           " Allow backspacing over everything in insert mode
+"set shiftround            " Always indent/outdent to nearest tabstop
+"set nowrap                " Don't wrap text
+"set smarttab
+"set cinoptions=l1,(0,u0,j1
+"autocmd BufWritePre * : :%s/\s\+$//e
+"
+"
+""""""""""""""""""""""""""""""""""""""""
+"" Background
+""""""""""""""""""""""""""""""""""""""""
+"set diffopt=filler,iwhite " Keep files synced and ignore whitespace
+"set nobackup              " Don't keep a backup file
+"
+"
+""""""""""""""""""""""""""""""""""""""""
+"" Mappings
+""""""""""""""""""""""""""""""""""""""""
+"" Ex mode is annoying, disable it
+"map Q <Nop>
+"
+"" U is useless, make it a redo instead
+"map U <C-r>
+"
+"" Use :W to sudo-write the current buffer
+"command! W w !sudo dd of=%
+"
+"" Disable the arrow keys (forced immersion learning)
+"noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+"noremap <Right> <Nop>
+"vnoremap <Up> <Nop>
+"vnoremap <Down> <Nop>
+"vnoremap <Left> <Nop>
+"vnoremap <Right> <Nop>
+"inoremap <Up> <Nop>
+"inoremap <Down> <Nop>
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
+"
+"
+""""""""""""""""""""""""""""""""""""""""
+"" Search
+""""""""""""""""""""""""""""""""""""""""
+"set ignorecase            " Do case insensitive matching
+"set incsearch             " Incremental search
+"
