@@ -1,31 +1,99 @@
-echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" | sudo tee -a /etc/apt/sources.list
+#!/bin/bash
+
+############################
+# This script does everything necessary to get a linux-box up and running my way by
+# installing the correct set of programs and configuring them.
+############################
+
+#### Make ~/ feel like home.
+mkdir -p ~/bin ~/etc ~/src ~/tmp
+
+rmdir -p ~/Desktop ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+rm -f examples.desktop
+
+# TODO Is this necessary with i3???
+rm ~/.config/user-dirs.dirs
+ln -s ~/etc/user-dirs.dirs ~/.config/user-dirs.dirs
+ln -s ~/etc/user-dirs.conf ~/.config/user-dirs.conf
+chmod +w ~/etc/user-dirs.dirs
+xdg-user-dirs-gtk-update
+
+#### Add sources
+echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" | \
+    sudo tee -a /etc/apt/sources.list
 sudo add-apt-reposityory ppa:fcws-tw/ppa # vim
+sudo add-apt-repository -y "deb http://repository.spotify.com stable non-free"
 sudo apt-get --allow-unauthenticated install sur5r-keyring
-sudo apt-get update
-sudo apt-get install i3
-sudo apt-get install vim
 
-sudo apt-get install xbacklight
-sudo apt-get install playerctl
+# Adding repository signing keys to be able to verify downloaded packages.
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886 # Spotify
 
-# https://launchpad.net/ubuntu/+archive/primary/+files/rofi_0.15.7-1_i386.deb
-URL='http://ankisrs.net/download/mirror/anki-2.0.33.deb'
-FILE=`mktemp`
-wget "$URL" -O $FILE
-sudo dpkg -i $FILE
-rm $FILE
-sudo apt-get -f --force-yes --yes install # Will install missing dependencies
+#### Update to pull in the new sources.
+# TODO - switch to long form of flags and document
+sudo apt-get update -yqq
+sudo apt-get update --fix-missing
+sudo apt-get upgrade -yqq
 
-git config --global user.email "tayloredwardpeterson@gmail.com"
-git config --global user.name "Taylor Peterson"
+#### Install everything you can from apt.
+sudo apt-get install -y \
+    conky \
+    chromium-browser \
+    curl \
+    git \
+    i3 \
+    playerctl
+    redshift \
+    shutter \
+    spotify-client \
+    tilda \
+    tmux \
+    tree \
+    xbacklight \
+    xclip \
+    zsh
 
+#### Remove default-installed junk.
+sudo apt-get purge -y \
+    rhythmbox \
+    gwibber \
+    liferea \
+    indicator-appmenu # Get rid of global menus
+
+# Required for the neovim install.
 sudo apt-get install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+
+#### Install some more from source
+# TODO write a script for cloning, and making
+# TODO neovim or vim suggested an alternative to make that allows easy installation
 cd ~/bin
 git clone https://github.com/neovim/neovim.git
 cd neovim
 make
 sudo make install
 
+# TODO make fortunes file.
+#### Install the rest from deb files.
+# https://launchpad.net/ubuntu/+archive/primary/+files/rofi_0.15.7-1_i386.deb
+URL='http://ankisrs.net/download/mirror/anki-2.0.33.deb'
+FILE=`mktemp`
+wget "$URL" -O $FILE
+sudo dpkg -i $FILE
+rm $FILE
+
+#### Install any mising dependencies.
+sudo apt-get -f --force-yes --yes install
+
+# TODO unsafe on work machines?
+sudo apt-get autoremove -y
+
+# TODO prompt user for email to fill this with!
+# git config --global user.email "tayloredwardpeterson@gmail.com"
+
+#### Update defaults
+# TODO - make chromium default browser.
+
+#### Link all the things!
+# TODO - make smart based on file endings or some such
 ln -s ~/etc/i3/config ~/.config/i3/config
 ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-greeter-ubuntu.conf
 ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
@@ -33,14 +101,12 @@ ln -s ~/etc/accounts-service/taylor /var/lib/AccountsService/users/taylor
 ln -s ~/etc/accounts-service/icons /var/lib/AccountsService/icons/taylor
 ln -s ~/etc/nvim/init.vim ~/.config/nvim/init.vim
 
+rm ~/.profile
+ln -s ~/etc/.profile ~/.profile
+ln -s ~/etc/monitors.xml ~/.config/monitors.xml
+ln -s ~/etc/10-nvidia-brightness.conf /usr/share/X11/xorg.conf.d/10-nvidia-brightness.conf
 
-#!/bin/bash
-############################
-# install.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/configs
-# Run "sh install.sh" from this directiory to execute
-############################
-
+# Sample of how Sean did it - doesn't allow linking to anywhere other than home directory.
 ########## Variables
 
 dir=~/configs                    # dotfiles directory
@@ -74,75 +140,3 @@ for file in $files; do
 done
 echo "...done"
 
-# remap the caps lock key
-echo "Remapping CapsLock to Ctrl..."
-sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="caps:escape"/' /etc/default/keyboard
-echo "  (!) You need to log back in for this to take effect."
-echo "...done"
-
-# change default shell to zsh
-echo "Defaulting to zsh..."
-echo "  (!) You need to log back in for this to take effect."
-echo "...done"
-
-
-#!/bin/bash
-# This script sets up a new Ubuntu machine to my specifications.
-
-#echo Adding repository signing keys to be able to verify downloaded packages.
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886 # Spotify
-
-#echo Adding repositories.
-sudo add-apt-repository -y "deb http://repository.spotify.com stable non-free"
-
-sudo apt-get update -yqq
-sudo apt-get update --fix-missing
-sudo apt-get upgrade -yqq
-
-sudo apt-get install -y \
-    conky \
-    chromium-browser \
-    curl \
-    git \
-    redshift \
-    shutter \
-    spotify-client \
-    tilda \
-    tmux \
-    tree \
-    vim \
-    xclip \
-    zsh
-
-sudo apt-get purge -y \
-    rhythmbox \
-    gwibber \
-    liferea \
-    indicator-appmenu # Get rid of global menus
-
-
-sudo apt-get autoremove -y
-
-chromium-browser --make-default-browser    
-
-mkdir -p ~/bin ~/etc ~/src ~/tmp
-
-rmdir -p ~/Desktop ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
-rm -f examples.desktop
-
-# TODO Is this necessary with i3???
-rm ~/.config/user-dirs.dirs
-ln -s ~/etc/user-dirs.dirs ~/.config/user-dirs.dirs
-ln -s ~/etc/user-dirs.conf ~/.config/user-dirs.conf
-chmod +w ~/etc/user-dirs.dirs
-xdg-user-dirs-gtk-update
-
-rm ~/.profile
-ln -s ~/etc/.profile ~/.profile
-
-ln -s ~/etc/.gnomerc ~/.gnomerc
-
-ln -s ~/etc/monitors.xml ~/.config/monitors.xml
-sudo ln -s ~/etc/10-nvidia-brightness.conf /usr/share/X11/xorg.conf.d/10-nvidia-brightness.conf
-
-# make fortunes file.
