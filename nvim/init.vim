@@ -35,6 +35,9 @@ set updatetime=250 " milliseconds
 " Turn on cursor cross-hairs.
 set cursorline cursorcolumn
 
+" Make the gutter 6 columns wide.
+set numberwidth=6
+
 " Highlight everything past column 100 (-1 allows search highlighting to overwrite).
 call matchadd('ColorColumn', '\%>99v', -1)
 

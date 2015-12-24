@@ -21,6 +21,9 @@
 # ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
 
 # NOTE: run xev and press keys to get keycodes. 
+# TODO floating_modifier to allow dragging flating windows with mouse?
+# TODO dmenu vs rofi vs alternative?
+# TODO setup monitors automatically (including collapsing workspaces when unplugged)
 
 # ------------
 # Syntax Notes
