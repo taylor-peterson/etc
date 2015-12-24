@@ -1,5 +1,6 @@
 #!/bin/bash
 # ~/etc/scripts/dpkg-url
+# TODO what's the line before this for?
 
 # This script is a wrapper for dpkg that allows it to accept urls to deb files.
 #TODO make this work...
@@ -8,23 +9,26 @@ parameters = $@
 urls = ""
 dpkgParameters = ""
 
+# Split the parameters into urls and dpkg options.
 for parameter in ${parameters}; do
-        echo $parameter | grep http 2>&1 > /dev/null
+    echo $parameter | grep http 2>&1 > /dev/null
+    httpFound = ($? == 0)
 
-        httpFound = ($? == 0)
-        if ${httpFound}; then
-            urls+= "$i"
-	    echo ${urls}
-	else
-            dpkgParameters+="$i"
-        fi
+    if ${httpFound}; then
+        urls+= "$parameter"
+        echo ${urls}
+    else
+        dpkgParameters+="$parameter"
+    fi
 done
 
-#Remove beginning and trailing space
+#Remove beginning and trailing space from the urls.
 urls=$(echo ${urls} | sed -e 's/^ //g' -e 's/ $//g')
 
-noUrls = [-z ${urls}] # Check if the list of urls has non-zero length.
+# Check if the list of urls has non-zero length.
+noUrls = [-z ${urls}]
 
+# Either call dpkg normally or download all debian packages specified by url and install them.
 if [ ${noUrls} ]; then
     dpkg ${dpkgParameters}
 else
@@ -33,12 +37,13 @@ else
     cd /tmp/debs
 
     # Download all debian package.
-    for i in ${urls}; do
-        wget "$i"
+    for url in ${urls}; do
+        wget "$url"
     done
 
     dpkg ${dpkgParameters} /tmp/debs/*.deb # Install all deb packages.
     sudo apt-get -f --force-yes --yes install # Install missing dependencies.
 
+    # Return to where you were before.
     cd -
 fi
