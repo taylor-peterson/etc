@@ -1,0 +1,19 @@
+[user]
+	name = Taylor Peterson
+
+[color]
+    # default: auto colors output to terminal, but omits color-control codes to pipe or file
+	ui = true
+
+[core]
+	pager = less -FMRiX
+	editor = vim
+	excludesfile = ~/.gitignore
+
+[alias]
+	dag = log --graph --decorate --all --oneline
+	wdiff = diff --color-words
+    fetch = fetch --prune # Auto-remove any stale remote-tracking references.
+
+[merge]
+	tool = vimdiff
