@@ -1,0 +1,147 @@
+#==================================================================================================
+#                                        conkyrc_peterson
+# Date    : 2015-06-2
+# Author  : Taylor Peterson
+# Version : v0.1
+# License : Distributed under the terms of GNU GPLv2 or later (due to conkyrc_seamod).
+# 
+# Inspiration from conkyrc_seamod, a post from linuxowns, and flair weather. Icons from Harmattan.
+#     conkyrc_seamod:    http://kde-look.org/content/show.php?content=148718
+#     linux_owns:        https://linuxowns.wordpress.com/2008/04/04/create-a-custum-conky-setup/
+#     flair_weather:     http://gnome-look.org/content/show.php/Flair+Weather+Conky?content=168749
+#     harmattan:         http://zagortenay333.deviantart.com/art/Conky-Harmattan-426662366
+#==================================================================================================
+
+#=== Settings ===#
+
+#--- Window Behavior ---#
+background yes # Conky will remain behind other windows.
+double_buffer yes # Prevents flickering.
+imlib_cache_size 0 # Force conky to actually redraw images when they change. 
+own_window yes # Create your own window in which to draw.
+own_window_type override # Override windows are not under the control of the window manager.
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager  
+own_window_argb_visual yes # Enable true transparency (otherwise can see a faint border).
+own_window_transparent no # Allow custom window transparency. 
+own_window_argb_value 0 # Make the window transparent.
+total_run_times 0 # Total number of times for Conky to update before quitting.
+                  # Zero makes Conky run forever. 
+update_interval 1 # Wait this many seconds before refreshing.
+
+#--- Window Placement ---#
+alignment top_right # The alignment of the window determines what direction gap_x/y acts on.
+gap_x 20 # Gap between the right/left border of the screen and the Conky window in pixels.
+gap_y 40 # Gap between the top/bottom border of the screen and the Conky window in pixels.
+
+#--- Window Size ---#
+minimum_size 300 900 # Minimum window size.
+maximum_width 300 # Prevent text output from changing Conky's size.
+
+#--- Window Appearance ---#
+border_inner_margin 0 # The margin between the border and text in pixels.
+border_outer_margin 0 # The margin betweent he border and the edge of the window in pixels.
+default_color FFFFFF # Controls text that isn't switched manually to a different color.
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no 
+
+#--- Font Setup ---#
+override_utf8_locale yes # Force use of character encoding capable of all Unicode.
+uppercase no # Do not render all text in upper case.
+use_xft yes # Use Xft - provides anti-aliased fonts and such.
+xftfont 123:size=8 # Specify Xft font and size.
+xftalpha 0.1 # Alpha of Xft font (must be 0-1). Must be after xftfont line or colors will be weird.
+
+#--- Content Reporting ---# 
+cpu_avg_samples 1 # The number of samples to average for CPU monitoring.
+net_avg_samples 2 # The number of samples to average for net data.
+no_buffers yes # Subtract file system buffers when calculating used memory.
+temperature_unit celsius
+
+#=== Content ===#
+
+TEXT # Everything after this should be formatted on screen.
+
+#--- Time ---#
+${color DimGray} ${font Arial:bold:size=20} ${alignc}${time %H:%M}
+${voffset -12}   ${font Arial:bold:size=10} ${alignc}${time %Y-%m-%d}
+                 ${font Arial:bold:size=8}  ${alignc}${time %A}
+
+#--- System ---#
+${font Arial:bold:size=10}${color Tan1}SYSTEM ${font}${voffset -2}${hr 2}
+${voffset 5}${color DimGray}\
+Clockspeed: ${freq_g cpu0}Ghz ${alignr}Uptime: ${uptime}
+
+#--- CPU ---#
+# Note that the graphs interpolate between gray (222222) and Tan1 (ffa54f) based on load.
+${font Arial:bold:size=10}${color Tan1}\
+                  ${goto 0}CPU                                     ${goto 160}MEM                    ${font}${color DimGray}
+${voffset -28}    ${goto 32}${cpugraph 20,108 222222 ffa54f -l -t} ${alignr}${memgraph 20,108 222222 ffa54f -t}
+                  ${goto 0}${voffset -5}${cpubar 5,140}            ${goto 160}${membar 5,140}
+${color Tan1}     ${goto 0}${top name 1} ${goto 100}${top cpu 1}%  ${goto 160}${top_mem name 1} ${alignr}${top_mem mem 1}%
+                  ${goto 0}${top name 2} ${goto 100}${top cpu 2}%  ${goto 160}${top_mem name 2} ${alignr}${top_mem mem 2}%
+${color White}    ${goto 0}${top name 3} ${goto 100}${top cpu 3}%  ${goto 160}${top_mem name 3} ${alignr}${top_mem mem 3}%
+                  ${goto 0}${top name 4} ${goto 100}${top cpu 4}%  ${goto 160}${top_mem name 4} ${alignr}${top_mem mem 4}%
+${color DarkGray} ${goto 0}${top name 5} ${goto 100}${top cpu 5}%  ${goto 160}${top_mem name 5} ${alignr}${top_mem mem 5}%
+                  ${goto 0}${top name 6} ${goto 100}${top cpu 6}%  ${goto 160}${top_mem name 6} ${alignr}${top_mem mem 6}%
+${color DimGray}  ${goto 0}${top name 7} ${goto 100}${top cpu 7}%  ${goto 160}${top_mem name 7} ${alignr}${top_mem mem 7}%
+                  ${goto 0}${top name 8} ${goto 100}${top cpu 8}%  ${goto 160}${top_mem name 8} ${alignr}${top_mem mem 8}%
+
+#--- HDD ---#
+${font Arial:bold:size=10}${color Tan1}HDD 
+${voffset -28}${goto 32}${diskiograph 20,270 222222 ffa54f -l -t}
+${font}${color DimGray}\
+/home ${alignc} ${fs_used /home} / ${fs_size /home} ${alignr}${fs_free_perc /home}%
+${fs_bar /home}
+/data ${alignc} ${fs_used /home/taylor/Data} / ${fs_size /home/taylor/Data} ${alignr}${fs_free_perc /home/taylor/Data}%
+${fs_bar /home/taylor/Data}
+
+#--- Network ---#
+${font Arial:bold:size=10}${color Tan1}NETWORK ${voffset -2}${hr 2}
+${voffset 10}${font}${color DarkGray}Down                              ${goto 160}Up
+${voffset -28} ${goto 32}${downspeedgraph 20,108 222222 ffa54f -t -l}  ${alignr}${upspeedgraph 20,108 222222 ffa54f -t -l}
+${color DimGray}\
+${downspeed eth0}/s                       ${goto 100}${totaldown eth0} ${goto 160}${upspeed eth0}/s ${alignr}${totalup eth0}
+
+#--- Weather ---#
+${font Arial:bold:size=10}${color Tan1}WEATHER ${voffset -2}${hr 2}
+${voffset 5}${font}${color DimGray}\
+# Set WOEID (Location ID)
+${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=12798953&u=c" -o ~/.cache/weather.xml}\
+# Temperature
+Temp: ${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°C
+Wind: ${execi 300 grep "yweather:wind" ~/.cache/weather.xml|grep -o "speed=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} km/hr 
+# Sunrise/Sunset
+${voffset -25}\
+${alignr}Sunrise: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunrise=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} 
+${alignr}Sunset: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunset=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} 
+# Day Labels
+${voffset 5}${goto 18}Today ${goto 84}Tomorrow ${goto 152}Overmorrow ${goto 230}Ubermorrow
+#--- Weather Icons ---#
+${execi 300 cp -f weatherIcons/$(grep -m1 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 15,513 -s 44x44}
+${execi 300 cp -f weatherIcons/$(grep -m2 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 90,513 -s 44x44}
+${execi 300 cp -f weatherIcons/$(grep -m3 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 165,513 -s 44x44}
+${execi 300 cp -f weatherIcons/$(grep -m4 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 240,513 -s 44x44}
+#--- High/Low Temperatures ---#
+${goto 17}${execi 300 grep -m1 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
+${execi 300 grep -m1 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
+${goto 92}${execi 300 grep -m2 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
+${execi 300 grep -m2 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
+${goto 167}${execi 300 grep -m3 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
+${execi 300 grep -m3 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
+${goto 244}${execi 300 grep -m4 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
+${execi 300 grep -m4 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°
+
+#--- Music ---#
+${if_running spotify}\
+${font Arial:bold:size=10}${color Tan1}MUSIC ${voffset -2}${hr 2}
+${voffset 5}${font}${color DimGray}\
+${exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'|grep -A 2 "artist"|grep -v "artist"|grep -v "array"|grep -o "\"[^\]*\""|grep -o "[^\"]*"}\
+${alignr}${exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'|grep -A 1 "title"|grep -v "title"|grep -o "\"[^\]*\""|grep -o "[^\"]*"}
+
+$endif\
+#--- Fortunes ---#
+${font Arial:bold:size=10}${color Tan1}FORTUNE ${voffset -2}${hr 2}
+${voffset 5}${font}${color DimGray}\
+${execi 60 fortune ~/.files/fortune/fortune -sn 300|fold -bsw 55}
