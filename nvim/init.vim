@@ -1,11 +1,18 @@
 call plug#begin()
-Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
+" Informational display:
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace (nominally not in insert mode).
+Plug 'airblade/vim-gitgutter' " git diff in the gutter; stage/revert hunks.
 
-Plug 'vim-scripts/EasyColour' " Alternate color scheme syntax, with in-config coloring and automatic fallback on nearest color.
-
+" Syntax
 Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
+
+" Not working/untested:
+Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
+Plug 'vim-scripts/EasyColour' " Alternate color scheme syntax, with in-config coloring and automatic fallback on nearest color.
 call plug#end()
+
+" Set the length of time vim waits before it updates the gitgutter.
+set updatetime=250 " milliseconds
 
 " Turn on cursor cross-hairs.
 set cursorline cursorcolumn
