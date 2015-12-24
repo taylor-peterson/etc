@@ -15,6 +15,9 @@
 "   nelstrom/vim-visual-star-search
 " 
 
+" TODO do the same for other modes?
+" Get modes on command line?
+"set noremap jj <ESC> " Use jj to escape to normal from insert mode.
 
 call plug#begin()
 " Informational display:
@@ -82,6 +85,7 @@ set tabstop=4 " Set the width of the tab character in spaces.
 
 " Enable file type detection and load the filetype's indent and plugin files if they exists.
 filetype plugin indent on
+" TODO this obviates copyindent and smartindent, right?
 
 "colors bandit
 colors petetay
@@ -114,7 +118,8 @@ endif
 autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
 
 
-
+" set hidden
+"
 "syntax on                 " Syntax highlighting! Yay!
 "set laststatus=2          " Always have status bar
 "set scrolloff=1           " Dont let the curser get too close to the edge

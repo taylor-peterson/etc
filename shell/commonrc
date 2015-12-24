@@ -1,0 +1,4 @@
+# Shell-agnostic settings.
+source aliases
+source prompt
+source ~/.local-overrides
