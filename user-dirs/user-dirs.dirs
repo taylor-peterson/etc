@@ -1,0 +1,3 @@
+# This file controls the bookmarks in the file browser.
+XDG_DESKTOP_DIR="$HOME" # Need this or ~/Desktop gets recreated on login.
+XDG_DOWNLOAD_DIR="$HOME/tmp"
