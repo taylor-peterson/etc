@@ -12,9 +12,9 @@ let colors_name = "petetay"
 "Highlight trailing text
 hi ExtraWhitespace                 ctermbg=darkred
 " Highlight 'eol', 'extends' and 'preceeds'
-hi NonText	ctermfg=darkblue       ctermbg=none      cterm=none
+hi NonText	ctermfg=yellow       ctermbg=none      cterm=none
 " Highlight 'nbsp', 'space', 'tab', and 'trail'
-hi SpecialKey	ctermfg=darkcyan       ctermbg=none      cterm=none
+hi SpecialKey	ctermfg=238     ctermbg=none      cterm=none
 
 hi IndentGuidesOdd ctermbg=darkgray
 hi IndentGuidesEven ctermbg=black
@@ -79,8 +79,8 @@ hi DiffText	ctermfg=none           ctermbg=red       cterm=bold
 " If perf issues, turning off line/column highlighting could help
 hi Cursor	ctermfg=black          ctermbg=yellow    cterm=none
 hi lCursor	ctermfg=black          ctermbg=white     cterm=none
-hi CursorLine                      ctermbg=232       cterm=none
-hi CursorColumn                    ctermbg=232       cterm=none
+hi CursorLine                      ctermbg=234       cterm=none
+hi CursorColumn                    ctermbg=234       cterm=none
 
 hi ColorColumn                     ctermbg=red     cterm=none
 

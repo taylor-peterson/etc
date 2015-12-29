@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Symlink this into /usr/local/bin/anki, make the file executable, and
+# make sure that /usr/local/bin comes before /usr/bin on your path
+# to force Anki to use the data location specified by -b.
+/usr/bin/anki -b ~/usr/anki
