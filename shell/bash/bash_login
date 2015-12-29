@@ -1,0 +1,15 @@
+# Ensure that the bashrc is sourced when run as a login shell (e.g. connecting via ssh).
+# See: shreevatsa.wordpress.com/2008/03/30/zshbash-startup-files-loading-order-bashrc-zshrc-etc/
+#
+
+# If running bash, include .bashrc if it exists.
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# Set PATH so it includes user's private bin if it exists.
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
