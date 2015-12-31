@@ -1,0 +1,29 @@
+{
+	"segments": {
+		"left": [
+			{
+				"function": "powerline.segments.i3wm.workspaces"
+			},
+			{
+				"function": "powerline.segments.i3wm.mode"
+			}
+		],
+		"right": [
+			{
+				"function": "powerline.segments.common.wthr.weather",
+				"priority": 50
+			},
+			{
+				"function": "powerline.segments.common.time.date"
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "%H:%M",
+					"istime": true
+				}
+			}
+		]
+	}
+}

@@ -11,7 +11,6 @@ mkdir -p ~/bin ~/etc ~/src ~/tmp
 rmdir -p ~/Desktop ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
 rm -f examples.desktop
 
-# TODO Is this necessary with i3???
 rm ~/.config/user-dirs.dirs
 ln -s ~/etc/user-dirs.dirs ~/.config/user-dirs.dirs
 ln -s ~/etc/user-dirs.conf ~/.config/user-dirs.conf
@@ -70,6 +69,21 @@ git clone https://github.com/neovim/neovim.git
 cd neovim
 make
 sudo make install
+
+#### Python packages
+pip install powerline-status
+pip install i3ipc
+
+cd
+git clone https://github.com/LemonBoy/bar.git
+cd bar
+sudo apt-get install libxcb-xinerama0-dev
+sudo apt-get install libxcb-randr0-dev
+make
+sudo make install
+
+fc-cache -vf ~/etc/fonts/ # Update font cache.
+ln -s ~/etc/fonts/10-powerline-symbols.conf ~/.config/fontconfig/conf.d
 
 # TODO make fortunes file.
 #### Install the rest from deb files.
