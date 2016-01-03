@@ -1,6 +1,7 @@
 # TODO startup notifications?
 # TODO it is possible to mark windows like lines in vim - investigate further - documentation is unclear
 # TODO closing lid does nothing when powered, but suspends otherwise.
+# TODO low-power notification
 
 # TODO Update the below and add charts for chords
 # ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
