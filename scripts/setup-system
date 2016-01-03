@@ -81,6 +81,13 @@ cd volnoti
 make
 sudo checkinstall
 
+# i3 status bar
+sudo apt-get install ruby-ronn
+git clone git://github.com/vivien/i3blocks
+cd i3blocks
+make clean all
+sudo checkinstall
+
 #### Python packages
 
 # TODO make fortunes file.

@@ -35,7 +35,6 @@
 # Use --no-startup-id because i3 is a command-line utility and does not support startup notifications
 # exec commands will be performed by i3 on initial startup
 # exec_always will also run when restarting i3
-# Line continuation is indicated by "\"
 
 # -----
 # Setup
@@ -75,6 +74,7 @@ exec_always --no<End>-startup-id feh --bg-scale ~/etc/pictures/ubuntu-blue.jpg
 bar {
     status_command i3blocks
     position top
+    tray_output none
 }
 
 # -----------------
