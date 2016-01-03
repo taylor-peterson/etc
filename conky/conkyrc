@@ -4,7 +4,7 @@
 # Author  : Taylor Peterson
 # Version : v0.1
 # License : Distributed under the terms of GNU GPLv2 or later (due to conkyrc_seamod).
-# 
+#
 # Inspiration from conkyrc_seamod, a post from linuxowns, and flair weather. Icons from Harmattan.
 #     conkyrc_seamod:    http://kde-look.org/content/show.php?content=148718
 #     linux_owns:        https://linuxowns.wordpress.com/2008/04/04/create-a-custum-conky-setup/
@@ -17,15 +17,15 @@
 #--- Window Behavior ---#
 background yes # Conky will remain behind other windows.
 double_buffer yes # Prevents flickering.
-imlib_cache_size 0 # Force conky to actually redraw images when they change. 
+imlib_cache_size 0 # Force conky to actually redraw images when they change.
 own_window yes # Create your own window in which to draw.
 own_window_type override # Override windows are not under the control of the window manager.
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager  
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 own_window_argb_visual yes # Enable true transparency (otherwise can see a faint border).
-own_window_transparent no # Allow custom window transparency. 
+own_window_transparent no # Allow custom window transparency.
 own_window_argb_value 0 # Make the window transparent.
 total_run_times 0 # Total number of times for Conky to update before quitting.
-                  # Zero makes Conky run forever. 
+                  # Zero makes Conky run forever.
 update_interval 1 # Wait this many seconds before refreshing.
 
 #--- Window Placement ---#
@@ -44,7 +44,7 @@ default_color FFFFFF # Controls text that isn't switched manually to a different
 draw_shades no
 draw_outline no
 draw_borders no
-draw_graph_borders no 
+draw_graph_borders no
 
 #--- Font Setup ---#
 override_utf8_locale yes # Force use of character encoding capable of all Unicode.
@@ -53,7 +53,7 @@ use_xft yes # Use Xft - provides anti-aliased fonts and such.
 xftfont 123:size=8 # Specify Xft font and size.
 xftalpha 0.1 # Alpha of Xft font (must be 0-1). Must be after xftfont line or colors will be weird.
 
-#--- Content Reporting ---# 
+#--- Content Reporting ---#
 cpu_avg_samples 1 # The number of samples to average for CPU monitoring.
 net_avg_samples 2 # The number of samples to average for net data.
 no_buffers yes # Subtract file system buffers when calculating used memory.
@@ -71,9 +71,15 @@ ${voffset -12}   ${font Arial:bold:size=10} ${alignc}${time %Y-%m-%d}
 #--- System ---#
 ${font Arial:bold:size=10}${color Tan1}SYSTEM ${font}${voffset -2}${hr 2}
 ${voffset 5}${color DimGray}\
-Clockspeed: ${freq_g cpu0}Ghz ${alignr}Uptime: ${uptime}
+Clockspeed: ${freq_g cpu0}Ghz\
+${alignr}Brightness: ${execi 1 xbacklight -get | xargs printf "%.*f" 0}%
+Uptime: ${uptime}\
+${alignr} Volume:\
+${if_match "off" == "${execi 1 amixer -D pulse get Master | grep -o -m 1 "off"}"}XX%\
+${else} ${execi 1 amixer -D pulse get Master | egrep -o -m 1 "[0-9]+%"}\
+${endif}
 
-#--- CPU ---#
+#--- CPU adn MEM ---#
 # Note that the graphs interpolate between gray (222222) and Tan1 (ffa54f) based on load.
 ${font Arial:bold:size=10}${color Tan1}\
                   ${goto 0}CPU                                     ${goto 160}MEM                    ${font}${color DimGray}
@@ -88,18 +94,19 @@ ${color DarkGray} ${goto 0}${top name 5} ${goto 100}${top cpu 5}%  ${goto 160}${
 ${color DimGray}  ${goto 0}${top name 7} ${goto 100}${top cpu 7}%  ${goto 160}${top_mem name 7} ${alignr}${top_mem mem 7}%
                   ${goto 0}${top name 8} ${goto 100}${top cpu 8}%  ${goto 160}${top_mem name 8} ${alignr}${top_mem mem 8}%
 
-#--- HDD ---#
-${font Arial:bold:size=10}${color Tan1}HDD 
-${voffset -28}${goto 32}${diskiograph 20,270 222222 ffa54f -l -t}
+#--- HDD and Network---#
+${font Arial:bold:size=10}${color Tan1}HDD
+${voffset -28}${goto 32}${diskiograph 20,108 222222 ffa54f -l -t}
 ${font}${color DimGray}\
-/home ${alignc} ${fs_used /home} / ${fs_size /home} ${alignr}${fs_free_perc /home}%
-${fs_bar /home}
-/data ${alignc} ${fs_used /home/taylor/Data} / ${fs_size /home/taylor/Data} ${alignr}${fs_free_perc /home/taylor/Data}%
-${fs_bar /home/taylor/Data}
+/home ${goto 45} ${fs_used /home} / ${fs_size /home}
+${fs_bar 5,140 /home}
+/data ${goto 45} ${fs_used /home/taylor/Data} / ${fs_size /home/taylor/Data}
+${fs_bar 5,140 /home/taylor/Data}
 
 #--- Network ---#
-${font Arial:bold:size=10}${color Tan1}NETWORK ${voffset -2}${hr 2}
-${voffset 10}${font}${color DarkGray}Down                              ${goto 160}Up
+${font Arial:bold:size=10}${color Tan1}NETWORK ${voffset -2}${hr 2}TEXT
+${font}${color DarkGray}IP: ${execi 3600 wget -O - http://ip.tupeux.com | tail}
+${voffset 10}Down                              ${goto 160}Up
 ${voffset -28} ${goto 32}${downspeedgraph 20,108 222222 ffa54f -t -l}  ${alignr}${upspeedgraph 20,108 222222 ffa54f -t -l}
 ${color DimGray}\
 ${downspeed eth0}/s                       ${goto 100}${totaldown eth0} ${goto 160}${upspeed eth0}/s ${alignr}${totalup eth0}
@@ -111,18 +118,18 @@ ${voffset 5}${font}${color DimGray}\
 ${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=12798953&u=c" -o ~/.cache/weather.xml}\
 # Temperature
 Temp: ${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°C
-Wind: ${execi 300 grep "yweather:wind" ~/.cache/weather.xml|grep -o "speed=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} km/hr 
+Wind: ${execi 300 grep "yweather:wind" ~/.cache/weather.xml|grep -o "speed=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} km/hr
 # Sunrise/Sunset
 ${voffset -25}\
-${alignr}Sunrise: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunrise=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} 
-${alignr}Sunset: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunset=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} 
+${alignr}Sunrise: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunrise=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"}
+${alignr}Sunset: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunset=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"}
 # Day Labels
 ${voffset 5}${goto 18}Today ${goto 84}Tomorrow ${goto 152}Overmorrow ${goto 230}Ubermorrow
 #--- Weather Icons ---#
-${execi 300 cp -f weatherIcons/$(grep -m1 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 15,513 -s 44x44}
-${execi 300 cp -f weatherIcons/$(grep -m2 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 90,513 -s 44x44}
-${execi 300 cp -f weatherIcons/$(grep -m3 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 165,513 -s 44x44}
-${execi 300 cp -f weatherIcons/$(grep -m4 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 240,513 -s 44x44}
+${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m1 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 15,513 -s 44x44}
+${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m2 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 90,513 -s 44x44}
+${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m3 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 165,513 -s 44x44}
+${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m4 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 240,513 -s 44x44}
 #--- High/Low Temperatures ---#
 ${goto 17}${execi 300 grep -m1 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
 ${execi 300 grep -m1 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
@@ -144,4 +151,4 @@ $endif\
 #--- Fortunes ---#
 ${font Arial:bold:size=10}${color Tan1}FORTUNE ${voffset -2}${hr 2}
 ${voffset 5}${font}${color DimGray}\
-${execi 60 fortune ~/.files/fortune/fortune -sn 300|fold -bsw 55}
+${execi 60 fortune ~/etc/fortune/fortune -sn 300|fold -bsw 55}

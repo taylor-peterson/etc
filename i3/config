@@ -25,6 +25,7 @@
 # TODO floating_modifier to allow dragging flating windows with mouse?
 # TODO dmenu vs rofi vs alternative?
 # TODO setup monitors automatically (including collapsing workspaces when unplugged)
+# TODO shortcut in resize mode to equally split the screen
 
 # ------------
 # Syntax Notes
@@ -69,8 +70,9 @@ exec_always --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 # Switch to nI80211 as WPA supplicant driver.
 exec --no-startup-id sudo wicd
 exec_always --no-startup-id volnoti --timeout 1
-exec_always --no-startup-id conky
-exec_always --no<End>-startup-id feh --bg-scale ~/etc/pictures/ubuntu-blue.jpg
+exec --no-startup-id conky --config=~/etc/conky/conkyrc
+exec_always --no-startup-id xsetroot -solid "#000000"
+#exec_always --no-startup-id feh --bg-scale ~/etc/pictures/ubuntu-blue.jpg
 
 bar {
     status_command i3blocks
@@ -243,6 +245,7 @@ set $display_volume_notification \
 bindsym XF86AudioRaiseVolume exec $set_volume 5%+ && $display_volume_notification
 bindsym XF86AudioLowerVolume exec $set_volume 5%- && $display_volume_notification
 bindsym XF86AudioMute exec amixer -D pulse set Master toggle && volnoti-show -m
+# TODO toggling mute off should show current volume
 
 # Pause/Play/Next/Previous
 bindsym XF86AudioPrev exec dbus-send --print-reply \
