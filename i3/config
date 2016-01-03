@@ -70,8 +70,8 @@ exec_always --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 # Switch to nI80211 as WPA supplicant driver.
 exec --no-startup-id sudo wicd
 exec_always --no-startup-id volnoti --timeout 1
-exec --no-startup-id conky --config=~/etc/conky/conkyrc
 exec_always --no-startup-id xsetroot -solid "#000000"
+exec_always --no-startup-id conky --config ~/etc/conky/conkyrc
 #exec_always --no-startup-id feh --bg-scale ~/etc/pictures/ubuntu-blue.jpg
 
 bar {
