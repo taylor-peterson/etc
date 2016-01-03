@@ -69,7 +69,7 @@ exec_always --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 # Switch to nI80211 as WPA supplicant driver.
 exec --no-startup-id sudo wicd
 exec_always --no-startup-id conky
-exec_always --no-startup-id feh --bg-scale ~/Pictures/ubuntu-blue-1440x900.jpg
+exec_always --no<End>-startup-id feh --bg-scale ~/etc/pictures/ubuntu-blue.jpg
 
 bar {
     status_command i3blocks
@@ -222,22 +222,25 @@ bindsym $mod+Shift+Control+j move workspace to output left, focus output left
 # -------------
 
 # Screen Brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+set $display_brightness_notification xbacklight -get | \
+    xargs volnoti-show -s ~/etc/pictures/brightness_icon.png
 
-bindsym Shift+XF86MonBrightnessUp exec xbacklight -inc 1
-bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 1
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 && $display_brightness_notification
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 && $display_brightness_notification
+
+bindsym Shift+XF86MonBrightnessUp exec xbacklight -inc 1 && $display_brightness_notification
+bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 1 && $display_brightness_notification
 
 # Volume
-set $set_volume exec amixer -D pulse set Master unmute
-set $display_volume_notification exec \
-                    amixer -D pulse get Master | \
-                    egrep -o -m 1 "[0-9]+%" | egrep -o "[0-9]+" | \
-                    xargs volnoti-show
+set $set_volume amixer -D pulse set Master unmute
+set $display_volume_notification \
+    amixer -D pulse get Master | \
+    egrep -o -m 1 "[0-9]+%" | egrep -o "[0-9]+" | \
+    xargs volnoti-show
 
-bindsym XF86AudioRaiseVolume $set_volume 5%+, $display_volume_notification
-bindsym XF86AudioLowerVolume $set_volume 5%-, $display_volume_notification
-bindsym XF86AudioMute exec amixer -D pulse set Master toggle, exec volnoti-show -m
+bindsym XF86AudioRaiseVolume exec $set_volume 5%+ && $display_volume_notification
+bindsym XF86AudioLowerVolume exec $set_volume 5%- && $display_volume_notification
+bindsym XF86AudioMute exec amixer -D pulse set Master toggle && volnoti-show -m
 
 # Pause/Play/Next/Previous
 bindsym XF86AudioPrev exec dbus-send --print-reply \
