@@ -47,6 +47,7 @@ sudo apt-get install -y \
     tilda \
     tmux \
     tree \
+    wicd wicd-curses \
     xbacklight \
     xclip \
     zsh
@@ -68,22 +69,19 @@ cd ~/bin
 git clone https://github.com/neovim/neovim.git
 cd neovim
 make
-sudo make install
+sudo checkinstall
+
+# Notification daemon for volume and brightness.
+sudo apt-get install libdbus-glib-1-dev
+cd ~/bin
+git clone git clone git://github.com/hcchu/volnoti.git
+cd volnoti
+./prepare.sh
+./configure
+make
+sudo checkinstall
 
 #### Python packages
-pip install powerline-status
-pip install i3ipc
-
-cd
-git clone https://github.com/LemonBoy/bar.git
-cd bar
-sudo apt-get install libxcb-xinerama0-dev
-sudo apt-get install libxcb-randr0-dev
-make
-sudo make install
-
-fc-cache -vf ~/etc/fonts/ # Update font cache.
-ln -s ~/etc/fonts/10-powerline-symbols.conf ~/.config/fontconfig/conf.d
 
 # TODO make fortunes file.
 #### Install the rest from deb files.

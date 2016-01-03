@@ -64,11 +64,17 @@ exec_always --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 # --------------
 # Start Programs
 # --------------
+# Start network manager daemon (use wicd-curses interface).
+# Enter passkeys in the Advanced config of the network.
+# Switch to nI80211 as WPA supplicant driver.
+exec --no-startup-id sudo wicd
 exec_always --no-startup-id conky
 exec_always --no-startup-id feh --bg-scale ~/Pictures/ubuntu-blue-1440x900.jpg
-exec_always --no-startup-id \
-    python /usr/local/lib/python2.7/dist-packages/powerline/bindings/bar/powerline-bar.py --i3 | \
-        lemonbar
+
+bar {
+    status_command i3blocks
+    position top
+}
 
 # -----------------
 # Program Shortcuts
@@ -223,9 +229,15 @@ bindsym Shift+XF86MonBrightnessUp exec xbacklight -inc 1
 bindsym Shift+XF86MonBrightnessDown exec xbacklight -dec 1
 
 # Volume
-bindsym XF86AudioRaiseVolume exec amixer -D pulse set Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec amixer -D pulse set Master 5%- unmute
-bindsym XF86AudioMute exec amixer -D pulse set Master toggle
+set $set_volume exec amixer -D pulse set Master unmute
+set $display_volume_notification exec \
+                    amixer -D pulse get Master | \
+                    egrep -o -m 1 "[0-9]+%" | egrep -o "[0-9]+" | \
+                    xargs volnoti-show
+
+bindsym XF86AudioRaiseVolume $set_volume 5%+, $display_volume_notification
+bindsym XF86AudioLowerVolume $set_volume 5%-, $display_volume_notification
+bindsym XF86AudioMute exec amixer -D pulse set Master toggle, exec volnoti-show -m
 
 # Pause/Play/Next/Previous
 bindsym XF86AudioPrev exec dbus-send --print-reply \
