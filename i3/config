@@ -68,6 +68,7 @@ exec_always --no-startup-id xrandr --output DP1 --auto --left-of eDP1
 # Enter passkeys in the Advanced config of the network.
 # Switch to nI80211 as WPA supplicant driver.
 exec --no-startup-id sudo wicd
+exec_always --no-startup-id volnoti --timeout 1
 exec_always --no-startup-id conky
 exec_always --no<End>-startup-id feh --bg-scale ~/etc/pictures/ubuntu-blue.jpg
 
