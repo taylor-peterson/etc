@@ -79,8 +79,8 @@ hi DiffText	ctermfg=none           ctermbg=red       cterm=bold
 " If perf issues, turning off line/column highlighting could help
 hi Cursor	ctermfg=black          ctermbg=yellow    cterm=none
 hi lCursor	ctermfg=black          ctermbg=white     cterm=none
-hi CursorLine                      ctermbg=234       cterm=none
-hi CursorColumn                    ctermbg=234       cterm=none
+hi CursorLine                      ctermbg=232       cterm=none
+hi CursorColumn                    ctermbg=232       cterm=none
 
 hi ColorColumn                     ctermbg=red     cterm=none
 

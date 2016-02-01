@@ -116,33 +116,33 @@ bindsym $mod+Shift+q kill
 # ---------------------------
 
 # Change focused window.
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
 # Move focused container.
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # Resize highlighted container.
 bindsym $mod+r mode "resize"
 mode "resize" {
     set $resize_amount 1 px or 1 ppt
 
-    bindsym j resize grow left $resize_amount
-    bindsym k resize grow up $resize_amount
-    bindsym l resize grow down $resize_amount
-    bindsym semicolon resize grow right $resize_amount
+    bindsym h resize grow left $resize_amount
+    bindsym j resize grow up $resize_amount
+    bindsym k resize grow down $resize_amount
+    bindsym l resize grow right $resize_amount
 
-    bindsym Shift+j resize shrink right $resize_amount
-    bindsym Shift+k resize shrink down $resize_amount
-    bindsym Shift+l resize shrink up $resize_amount
-    bindsym Shift+semicolon resize shrink left $resize_amount
+    bindsym Shift+h resize shrink right $resize_amount
+    bindsym Shift+j resize shrink down $resize_amount
+    bindsym Shift+k resize shrink up $resize_amount
+    bindsym Shift+l resize shrink left $resize_amount
 
     # TODO control variants that resize by 10x?
 
@@ -151,8 +151,8 @@ mode "resize" {
 }
 
 # Change how focused container should splits. For h, think -; for v think |.
-bindsym $mod+h split horizontal
-bindsym $mod+v split vertical
+bindsym $mod+backslash split horizontal
+bindsym $mod+minus split vertical
 
 # Enter fullscreen mode.
 bindsym $mod+f fullscreen
@@ -172,7 +172,7 @@ bindsym $mod+space focus mode_toggle
 # --------------------
 # Workspace Management
 # --------------------
-bindsym $mod+backslash exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+bindsym $mod+$ exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
 # Name workspaces.
 set $ws_1 "1: chrome"
@@ -215,11 +215,11 @@ bindsym $mod+Shift+0 move container to workspace $ws_10, workspace $ws_10
 bindsym $mod+Shift+comma move container to workspace prev, workspace prev
 bindsym $mod+Shift+period move container to workspace next, workspace prev
 
-bindsym $mod+Control+semicolon move container to output right, focus output right
-bindsym $mod+Control+j move container to output left, focus output left
+bindsym $mod+Control+l move container to output right, focus output right
+bindsym $mod+Control+h move container to output left, focus output left
 
-bindsym $mod+Shift+Control+semicolon move workspace to output right, focus output right
-bindsym $mod+Shift+Control+j move workspace to output left, focus output left
+bindsym $mod+Shift+Control+l move workspace to output right, focus output right
+bindsym $mod+Shift+Control+h move workspace to output left, focus output left
 
 # -------------
 # Function Keys
