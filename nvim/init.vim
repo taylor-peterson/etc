@@ -174,6 +174,10 @@ if &diff
     endfunction
 endif
 
+" TODO map such that <BS> also removes the last digit when entering a number
+" as part of a command (currently only <DEL> does this)
+" suggested mapping :map CTRL-V <BS> CTRL-V <Del> doesn't appear to work
+
 autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
 
 " TODO examine equalalways for splits
