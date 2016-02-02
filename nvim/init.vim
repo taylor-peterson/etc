@@ -109,12 +109,14 @@ set wildignorecase " Ignore case when completing file names and directories.
 
 set mouse-=a " Disable the mouse.
 
+"TODO delete individual spaces instead of softtabstop many?
+"
 " Setup indentation to use spaces by default.
 "   When expandtab is not set, tabstop-many consecutive spaces are collapsed
 "     into a single tab character and <BS>/(auto)indentation deletes softtabstop
 "     many spaces (breaking tabs into spaces as needed).
-"   When expandtab is set, spaces are not collapsed, <BS> deletes either a
-"     single space or an entire tab character (without breaking it into
+"   When expandtab is set, spaces are not collapsed, <BS> deletes either
+"     softtabstop spaces or an entire tab character (without breaking it into
 "     spaces), and (auto)indentation replaces tabs on the line with
 "     tabstop-many spaces and then inserts/deletes spaces appropriately.
 set expandtab
@@ -124,11 +126,25 @@ set shiftround " In/outdent to the next multiple of shiftwidth
 set softtabstop=4 " Pressing <TAB> will always insert softtabstop many spaces.
 set tabstop=4 " Set the display width of the tab character ('\t') in spaces.
 
-" Enable file type detection and load the filetype's syntax highlighting, indent, and plugin files if they exist.
+" Enable file type detection and load the filetype's syntax highlighting,
+" indent, and plugin files if they exist.
+"
+" Plugins generally define an indentexpr to compute the indent of a line. When
+" defined and active, such an expression overrides all other indent methods
+" (obviating autoindent and smartindent). When not defined, plugins generally
+" append to cinoptions.
 filetype plugin indent on
-" TODO this obviates copyindent, autoindent, and smartindent, right?
-" also indentexpr, indentkeys, etc?
-" also copyindent, preserveindent
+
+" Override some default cinoptions that control auto-indentation:
+"   L0 - Don't indent labels (prevents auto-indent of '::' operator.
+"   l1 - Align with a case label instead of the statement after it on same line.
+"   (0 - When in unclosed parentheses, align subsequent lines with the first non-whitespace char.
+"   u0 - Same as (0, but for one level deeper. TODO - this necessary?
+"   w1 - Align with the character after the unclosed parenthesis, even if it is whitespace.
+"   Ws - If the unclosed ( is the last char in its line, indent the next line softtabstop spaces.
+"   ks - Overide (0 and indent following if/for/while to keep inner indentation distinct.
+"   j1 - Properly indent Java anonymous classes.
+set cinoptions=L0,l1,(0,u0,w1,Ws,ks,j1
 
 " TODO investigate cursorbind and scrollbind
 
@@ -195,7 +211,6 @@ set sidescrolloff=1 " Never allow the cursor to move into the "extends"
 """"""""""""""""""""""""""""""""""""""""
 "" Tabs and Indenting
 """"""""""""""""""""""""""""""""""""""""
-"set cinoptions=l1,(0,u0,j1
 "autocmd BufWritePre * : :%s/\s\+$//e
 
 """"""""""""""""""""""""""""""""""""""""
