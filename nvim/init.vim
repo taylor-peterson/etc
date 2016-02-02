@@ -83,21 +83,22 @@ set nowrap " Don't wrap lines longer than the window width.
 " pairs
 
 " Replace whitespace characters (list) with a specified set of alternates (listchars).
-"     eol:c      - Char to show at the end of each line: c=<unused>.
-"     tab:xy     - Characters used to show a tab: x=u25b8 (▸), y=u0bb (»).
-"                  The first is used once.
-"                  The second is repreated to fill the space a tab normally occupies.
-"     space:c    - Character used to show a space: c=a0 (۰).
-"     trail:c    - Character used for trailing spaces c=<unused> (handled by vim-better-whitespace).
-"                  Overrides space for relevant spaces.
-"     extends:c  - Characters to show in the last column, when 'wrap' is off
-"                  and the line extends beyond the right of the screen: c=u276d (❭).
-"     precedes:c - Character to show in the first column, when 'wrap' is off
-"                  and there is text preceding the character visible in the first column: c=u276c (❬).
-"     conceal:c  - Character to show in place of concealed text, when 'conceallevel' is set to 1: c=u250a (┊).
-"     nbsp:c     - Character used to show for a non-breaking space character (0xA0): c=u23b5 (⎵).
-"                  Non-breaking space characters generally prevent automatic line breaks
-"                  and collapsing of consecutive whitespace characters at their position.
+"   eol:c      - Char to show at the end of each line: c=<unused>.
+"   tab:xy     - Characters used to show a tab: x=u25b8 (▸), y=u0bb (»).
+"                The first is used once.
+"                The second is repreated to fill the space a tab normally occupies.
+"   space:c    - Character used to show a space: c=a0 (۰).
+"   trail:c    - Character used for trailing spaces c=<unused> (handled by vim-better-whitespace).
+"                Overrides space for relevant spaces.
+"   extends:c  - Characters to show in the last column, when 'wrap' is off
+"                and the line extends beyond the right of the screen: c=u276d (❭).
+"   precedes:c - Character to show in the first column, when 'wrap' is off and there is text
+"                preceding the character visible in the first column: c=u276c (❬).
+"   conceal:c  - Character to show in place of concealed text, when 'conceallevel'
+"                is set to 1: c=u250a (┊).
+"   nbsp:c     - Character used to show for a non-breaking space character (0xA0): c=u23b5 (⎵).
+"                Non-breaking space characters generally prevent automatic line breaks
+"                and collapsing of consecutive whitespace characters at their position.
 set list listchars=tab:▸»,space:·,extends:❭,precedes:❬,conceal:┊,nbsp:⎵
 
 " Set completion mode for wildmenu command-line completion.
@@ -117,7 +118,9 @@ set mouse-=a " Disable the mouse.
 "     spaces), and (auto)indentation replaces tabs on the line with
 "     tabstop-many spaces and then inserts/deletes spaces appropriately.
 set expandtab
-set shiftwidth=4 " (Auto)indentation will always insert/delete shiftwidth spaces.
+set shiftwidth=4 " (Auto)indentation will insert/delete shiftwidth spaces.
+set shiftround " In/outdent to the next multiple of shiftwidth
+               " (instead of strictly shiftwidth characters).
 set softtabstop=4 " Pressing <TAB> will always insert softtabstop many spaces.
 set tabstop=4 " Set the display width of the tab character ('\t') in spaces.
 
@@ -131,9 +134,10 @@ filetype plugin indent on
 
 colors petetay
 
+" Informational display
 set number relativenumber " Display absolute number on current line and relative on the rest.
-
 set showcmd " Display an incomplete command in the lower-right corner.
+set laststatus=2 " Always have status bar
 
 if &diff
     " diff mode
@@ -167,10 +171,13 @@ autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
 set hidden " buffers become hidden when abandoned
 
 "syntax on        " Syntax highlighting! Yay! TODO needed? ON vs on?
-set laststatus=2 " Always have status bar
+
+" Scrolling
 set scrolloff=1 " Minimum number of screen lines to keep above and below the cursor.
 set sidescroll=1 " Scroll one column horizontally at a time when moving the cursor off the screen.
 set sidescrolloff=1 " Never allow the cursor to move into the "extends"
+
+
 "set showmatch " When a bracket is inserted, jump to the matching one for matchtime
 
 
@@ -188,7 +195,6 @@ set sidescrolloff=1 " Never allow the cursor to move into the "extends"
 """"""""""""""""""""""""""""""""""""""""
 "" Tabs and Indenting
 """"""""""""""""""""""""""""""""""""""""
-set shiftround " Always indent/outdent to multiple of shiftwidth
 "set cinoptions=l1,(0,u0,j1
 "autocmd BufWritePre * : :%s/\s\+$//e
 
