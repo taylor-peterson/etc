@@ -109,12 +109,17 @@ set wildignorecase " Ignore case when completing file names and directories.
 set mouse-=a " Disable the mouse.
 
 " Setup indentation to use spaces by default.
-set expandtab " Use spaces instead of tabs.
-set shiftwidth=4 " Number of spaces to use for each step of (auto)indent.
-set softtabstop=4 " Number of spaces a <TAB> counts for during editing operations.
-
-" If tabs do show up, make them a reasonable width by default.
-set tabstop=4 " Set the width of the tab character in spaces.
+"   When expandtab is not set, tabstop-many consecutive spaces are collapsed
+"     into a single tab character and <BS>/(auto)indentation deletes softtabstop
+"     many spaces (breaking tabs into spaces as needed).
+"   When expandtab is set, spaces are not collapsed, <BS> deletes either a
+"     single space or an entire tab character (without breaking it into
+"     spaces), and (auto)indentation replaces tabs on the line with
+"     tabstop-many spaces and then inserts/deletes spaces appropriately.
+set expandtab
+set shiftwidth=4 " (Auto)indentation will always insert/delete shiftwidth spaces.
+set softtabstop=4 " Pressing <TAB> will always insert softtabstop many spaces.
+set tabstop=4 " Set the display width of the tab character ('\t') in spaces.
 
 " Enable file type detection and load the filetype's syntax highlighting, indent, and plugin files if they exist.
 filetype plugin indent on
