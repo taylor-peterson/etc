@@ -166,44 +166,20 @@ call Disable('<Down>')
 call Disable('<Left>')
 call Disable('<Right>')
 
+:map <BS> <Del> " Allow <BS> to remove the last digit when entering a number (i.e. in 55G).
+
 " ====
 " TODO
 " ====
-" investigate cursorbind and scrollbind
-" try out infercase to change insertion based on case of search
-" command to resource vimrc
-" syntax on        " Syntax highlighting! Yay! needed? ON vs on?
-" concealing text? (conceallevel,ealcursor)
-" consider changing the complete settings string to specify how keyword completion works
-    " same with completeopt
-
-" sync custom dictionary?
-
 " set autowrap width properly or turn off.
 " if leaving wrap on, consider breakindent which causes lines to be visually
 " indented the same amount as the beginning of that line to preserve blocks of
 " text
 " also, linebreak and showbreak
 
-" map such that <BS> also removes the last digit when entering a number
-" as part of a command (currently only <DEL> does this)
-" suggested mapping :map CTRL-V <BS> CTRL-V <Del> doesn't appear to work
-
-" examine equalalways for splits
-" also, splitbelow, splitright to set default location of new window
-" also consider fillchars if the default fill characters aren't appropriate
-
-" folding
-" consider foldclose, foldcolumn, foldmethod
-
-" formatprg - specify program to format the lines selected by gq
-" consider modifying path to include directories to search for files
-
-" consider adding to matchpairs to update the set of characters that form
-" pairs
 "set showmatch " When a bracket is inserted, jump to the matching one for matchtime
 
 "" Use :W to sudo-write the current buffer
 "command! W w !sudo dd of=%
-"
-"modify "include" and "includeexpr" per language?
+
+" Make W, Q, WQ, wQ, Wq all work - perhaps use tpope's plugin?
