@@ -123,7 +123,8 @@ set sidescroll=1 " Scroll one column horizontally at a time when moving the curs
 set sidescrolloff=1 " Never allow the cursor to move into the "extends" indicator.
 
 " Search
-set smartcase " Ignore case in search patterns unless one or more characters is uppercase
+set ignorecase " Ignore case in search patterns.
+set smartcase " Override ignorecase if the search pattern contains upper-case characters.
 set gdefault " Apply substitutions globally on lines (reverse with g)
 
 if &diff
@@ -172,17 +173,18 @@ call Disable('<Right>')
 " try out infercase to change insertion based on case of search
 " command to resource vimrc
 " syntax on        " Syntax highlighting! Yay! needed? ON vs on?
-" concealing text? (conceallevel, concealcursor)
-" consider changing the complete settings string to specify how keyword
-" completion works
-" same with completeopt
+" concealing text? (conceallevel,ealcursor)
+" consider changing the complete settings string to specify how keyword completion works
+    " same with completeopt
 
 " sync custom dictionary?
+
 " set autowrap width properly or turn off.
 " if leaving wrap on, consider breakindent which causes lines to be visually
 " indented the same amount as the beginning of that line to preserve blocks of
 " text
 " also, linebreak and showbreak
+
 " map such that <BS> also removes the last digit when entering a number
 " as part of a command (currently only <DEL> does this)
 " suggested mapping :map CTRL-V <BS> CTRL-V <Del> doesn't appear to work
@@ -195,7 +197,6 @@ call Disable('<Right>')
 " consider foldclose, foldcolumn, foldmethod
 
 " formatprg - specify program to format the lines selected by gq
-"au FocusLost * :wa " Save on losing focus?
 " consider modifying path to include directories to search for files
 
 " consider adding to matchpairs to update the set of characters that form
@@ -204,12 +205,5 @@ call Disable('<Right>')
 
 "" Use :W to sudo-write the current buffer
 "command! W w !sudo dd of=%
-"modify "include" and "includeexpr" per language?
 "
-"" This allows copying to and pasting from system clipboard.
-"noremap ty "+y            " Select desired contents then press ty
-"noremap tY "+Y            " Just press tY to yank entire line to clipboard
-"noremap td "+d            " Select desired contents then press td
-"noremap tD "+D            " Just press tY to delete entire line to clipboard
-"noremap tp "+p            " Put the text from clipboard after the cursor
-"noremap tP "+P            " Put the text from clipboard before the cursor
+"modify "include" and "includeexpr" per language?
