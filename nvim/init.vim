@@ -1,8 +1,10 @@
-" taylor-peterson's personal vim configuration.
+" =======
+" Plugins
+" =======
 
 call plug#begin()
-" Informational display:
-Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace (nominally not in insert mode).
+" Informational display
+Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace (but not in insert mode).
 Plug 'airblade/vim-gitgutter' " git diff in the gutter; stage/revert hunks.
 Plug 'bling/vim-airline' " Status line.
 
@@ -10,60 +12,41 @@ Plug 'bling/vim-airline' " Status line.
 Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
 Plug 'sheerun/vim-polyglot' " A collection of language packs.
 
-" Not working/untested:
+" Not working/untested
 Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
-Plug 'vim-scripts/EasyColour' " Alternate color scheme syntax, with in-config coloring and automatic fallback on nearest color.
+Plug 'vim-scripts/EasyColour' " Alternate color scheme syntax.
 call plug#end()
 
-" Configure status-line.
+" =======
+" Display
+" =======
 
-" branch integrates with fugitive to display the current branch
-"  - you can configure no-branch text, truncate name, and custom formatting
-" %f Path to the file in the buffer, as typed or relative to current directory.
-" %r - readonly flag, text is "[RO]"
-" %c - column number
-" %p - percentage through file in lines
-"%h - help buffer flag?
+call matchadd('ColorColumn', '\%>100v', -1) " Highlight (low-priority) column 100+.
+colors petetay " Use my custom colorscheme.
+set cursorline cursorcolumn " Turn on cursor cross-hairs.
+set laststatus=2 " Always display the status bar.
+set number relativenumber " Display absolute number on current line and relative on the rest.
+set showcmd " Display an incomplete command in the lower-right corner.
+set updatetime=250 " Milliseconds vim waits before updating gitgutter and swap file.
+set nowrap " Don't wrap lines longer than the window width.
+
+" Configure status-line.
+"   branch integrates with fugitive to display the current branch
+"    - you can configure no-branch text, truncate name, and custom formatting
+"   %f Path to the file in the buffer, as typed or relative to current directory.
+"   %r - readonly flag, text is "[RO]"
+"   %c - column number
+"   %p - percentage through file in lines
 call airline#parts#define_raw('column_number', '%c')
 function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', 'paste'])
     let g:airline_section_b = airline#section#create(['hunks'])
     let g:airline_section_c = airline#section#create(['%.100f']) " 100 characters max.
     let g:airline_section_gutter = airline#section#create(['readonly'])
-    let g:airline_section_x = airline#section#create(['%h'])
     let g:airline_section_z = airline#section#create(['%p%%', ' ', 'column_number'])
     let g:airline_section_warning = airline#section#create(['whitespace'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit() " After plugin loads, but before it replaces statusline
-
-" TODO - concealing text? (conceallevel, concealcursor)
-" consider changing the complete settings string to specify how keyword
-" completion works
-" same with completeopt
-
-" TODO sync custom dictionary?
-
-" Set the length of time vim waits before it updates the gitgutter.
-set updatetime=250 " milliseconds
-
-set undofile " Create <FILENAME>.un that persists undo information across close/reopen.
-
-set cursorline cursorcolumn " Turn on cursor cross-hairs.
-
-" Highlight everything past column 100 (-1 allows search highlighting to overwrite).
-call matchadd('ColorColumn', '\%>99v', -1)
-
-" consider modifying path to include directories to search for files
-
-" TODO set autowrap width properly or turn off.
-" if leaving wrap on, consider breakindent which causes lines to be visually
-" indented the same amount as the beginning of that line to preserve blocks of
-" text
-" also, linebreak and showbreak
-set nowrap " Don't wrap lines longer than the window width.
-
-" consider adding to matchpairs to update the set of characters that form
-" pairs
 
 " Replace whitespace characters (list) with a specified set of alternates (listchars).
 "   eol:c      - Char to show at the end of each line: c=<unused>.
@@ -84,30 +67,20 @@ set nowrap " Don't wrap lines longer than the window width.
 "                and collapsing of consecutive whitespace characters at their position.
 set list listchars=tab:▸»,space:·,extends:❭,precedes:❬,conceal:┊,nbsp:⎵
 
-" Set completion mode for wildmenu command-line completion.
-" First press of <TAB> completes the longest common string and shows options in wildmenu.
-" Subsequent <TAB>s complete matches in turn.
-set wildmode=longest:full,full
-set wildignorecase " Ignore case when completing file names and directories.
+" ===============
+" Auto-formatting
+" ===============
 
-set mouse-=a " Disable the mouse.
+set nojoinspaces " Only insert one space after [.?!] when the join command is used.
 
-"TODO delete individual spaces instead of softtabstop many?
-"
 " Setup indentation to use spaces by default.
-"   When expandtab is not set, tabstop-many consecutive spaces are collapsed
-"     into a single tab character and <BS>/(auto)indentation deletes softtabstop
-"     many spaces (breaking tabs into spaces as needed).
-"   When expandtab is set, spaces are not collapsed, <BS> deletes either
-"     softtabstop spaces or an entire tab character (without breaking it into
-"     spaces), and (auto)indentation replaces tabs on the line with
-"     tabstop-many spaces and then inserts/deletes spaces appropriately.
-set expandtab
-set shiftwidth=4 " (Auto)indentation will insert/delete shiftwidth spaces.
-set shiftround " In/outdent to the next multiple of shiftwidth
-               " (instead of strictly shiftwidth characters).
-set softtabstop=4 " Pressing <TAB> will always insert softtabstop many spaces.
 set tabstop=4 " Set the display width of the tab character ('\t') in spaces.
+set shiftwidth=0 " Indentation (<, >, cindent, etc) will insert/delete tabstop-many spaces.
+set softtabstop=-1 " Pressing <TAB> (or <BS> on a tab) will insert (delete) shiftwidth-many spaces.
+set shiftround " Round indent (<, >) to the next multiple of shiftwidth
+               " (instead of strictly shiftwidth characters).
+set expandtab " Insert spaces instead of tab characters.
+              " Note that indenting will replace all tab characters on affected lines with spaces.
 
 " Enable file type detection and load the filetype's syntax highlighting,
 " indent, and plugin files if they exist.
@@ -129,14 +102,29 @@ filetype plugin indent on
 "   j1 - Properly indent Java anonymous classes.
 set cinoptions=L0,l1,(0,u0,w1,Ws,ks,j1
 
-" TODO investigate cursorbind and scrollbind
+" =======
+" Backend - affects how vim behaves
+" =======
 
-colors petetay
+set mouse-=a " Disable the mouse.
+set undofile " Create <FILENAME>.un that persists undo information across close/reopen.
+set hidden " buffers become hidden when abandoned
+autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
 
-" Informational display
-set number relativenumber " Display absolute number on current line and relative on the rest.
-set showcmd " Display an incomplete command in the lower-right corner.
-set laststatus=2 " Always have status bar
+" Set completion mode for wildmenu command-line completion.
+" First press of <TAB> completes the longest common string and shows options in wildmenu.
+" Subsequent <TAB>s complete matches in turn.
+set wildmode=longest:full,full
+set wildignorecase " Ignore case when completing file names and directories.
+
+" Scrolling
+set scrolloff=1 " Minimum number of screen lines to keep above and below the cursor.
+set sidescroll=1 " Scroll one column horizontally at a time when moving the cursor off the screen.
+set sidescrolloff=1 " Never allow the cursor to move into the "extends" indicator.
+
+" Search
+set smartcase " Ignore case in search patterns unless one or more characters is uppercase
+set gdefault " Apply substitutions globally on lines (reverse with g)
 
 if &diff
     " diff mode
@@ -157,13 +145,49 @@ if &diff
     endfunction
 endif
 
-" TODO map such that <BS> also removes the last digit when entering a number
+" =========
+" Functions
+" =========
+
+" Disable key in Normal, Visual, Select, Operator-pending, and Insert modes.
+function! Disable(key)
+    execute 'noremap' a:key '<Nop>'
+    execute 'inoremap' a:key '<Nop>'
+endfunction
+
+" ========
+" Mappings
+" ========
+
+"" Disable the arrow keys (forced immersion learning)
+call Disable('<Up>')
+call Disable('<Down>')
+call Disable('<Left>')
+call Disable('<Right>')
+
+" ====
+" TODO
+" ====
+" investigate cursorbind and scrollbind
+" try out infercase to change insertion based on case of search
+" command to resource vimrc
+" syntax on        " Syntax highlighting! Yay! needed? ON vs on?
+" concealing text? (conceallevel, concealcursor)
+" consider changing the complete settings string to specify how keyword
+" completion works
+" same with completeopt
+
+" sync custom dictionary?
+" set autowrap width properly or turn off.
+" if leaving wrap on, consider breakindent which causes lines to be visually
+" indented the same amount as the beginning of that line to preserve blocks of
+" text
+" also, linebreak and showbreak
+" map such that <BS> also removes the last digit when entering a number
 " as part of a command (currently only <DEL> does this)
 " suggested mapping :map CTRL-V <BS> CTRL-V <Del> doesn't appear to work
 
-autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
-
-" TODO examine equalalways for splits
+" examine equalalways for splits
 " also, splitbelow, splitright to set default location of new window
 " also consider fillchars if the default fill characters aren't appropriate
 
@@ -171,21 +195,17 @@ autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
 " consider foldclose, foldcolumn, foldmethod
 
 " formatprg - specify program to format the lines selected by gq
-set hidden " buffers become hidden when abandoned
+"au FocusLost * :wa " Save on losing focus?
+" consider modifying path to include directories to search for files
 
-"syntax on        " Syntax highlighting! Yay! TODO needed? ON vs on?
-
-" Scrolling
-set scrolloff=1 " Minimum number of screen lines to keep above and below the cursor.
-set sidescroll=1 " Scroll one column horizontally at a time when moving the cursor off the screen.
-set sidescrolloff=1 " Never allow the cursor to move into the "extends"
-
-
+" consider adding to matchpairs to update the set of characters that form
+" pairs
 "set showmatch " When a bracket is inserted, jump to the matching one for matchtime
 
-
-"" Vim Buffer
-""""""""""""""""""""""""""""""""""""""""
+"" Use :W to sudo-write the current buffer
+"command! W w !sudo dd of=%
+"modify "include" and "includeexpr" per language?
+"
 "" This allows copying to and pasting from system clipboard.
 "noremap ty "+y            " Select desired contents then press ty
 "noremap tY "+Y            " Just press tY to yank entire line to clipboard
@@ -193,51 +213,3 @@ set sidescrolloff=1 " Never allow the cursor to move into the "extends"
 "noremap tD "+D            " Just press tY to delete entire line to clipboard
 "noremap tp "+p            " Put the text from clipboard after the cursor
 "noremap tP "+P            " Put the text from clipboard before the cursor
-"
-"
-""""""""""""""""""""""""""""""""""""""""
-"" Tabs and Indenting
-""""""""""""""""""""""""""""""""""""""""
-"autocmd BufWritePre * : :%s/\s\+$//e
-
-""""""""""""""""""""""""""""""""""""""""
-"" Background
-""""""""""""""""""""""""""""""""""""""""
-"TODO command to resource vimrc
-"modify "include" and "includeexpr" per language?
-
-""""""""""""""""""""""""""""""""""""""""
-"" Mappings
-""""""""""""""""""""""""""""""""""""""""
-"" Ex mode is annoying, disable it
-"map Q <Nop>
-"
-"" U is useless, make it a redo instead
-"map U <C-r>
-"
-"" Use :W to sudo-write the current buffer
-"command! W w !sudo dd of=%
-"
-"" Disable the arrow keys (forced immersion learning)
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-vnoremap <Up> <Nop>
-vnoremap <Down> <Nop>
-vnoremap <Left> <Nop>
-vnoremap <Right> <Nop>
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-
-set nojoinspaces " Only insert one space after [.?!] when the join command is used.
-
-""""""""""""""""""""""""""""""""""""""""
-"" Search
-""""""""""""""""""""""""""""""""""""""""
-set smartcase " Ignore case in search patterns unless one or more characters is uppercase
-" TODO try out infercase to change insertion based on case of search
-set gdefault              " applies substitutions globally on lines (reverse with g)
-"au FocusLost * :wa " Save on losing focus?
