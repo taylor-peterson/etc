@@ -1,19 +1,4 @@
-" Poss plugins - check to see if they have vim-airline compatibility when
-" adding ad see if the status-line information is helpful.
-"   scrooloose/nerdtree
-"   majutshushi/tagbar
-"   tpope/vim-fugitive
-"   tpope/vim-git
-"   autoclose
-"   SirVer/ultisnips
-"   vim-snippets
-"   vim-surround
-"   kien/ctrlp
-"   jcf/vim-latex
-"   scrooloose/syntastic
-"   nelstrom/vim-visual-star-search
-"   chrisbra/csv.vim - eases handling of comma (or equiv) separated tabular data in vim
-"
+" taylor-peterson's personal vim configuration.
 
 call plug#begin()
 " Informational display:
@@ -23,6 +8,7 @@ Plug 'bling/vim-airline' " Status line.
 
 " Syntax
 Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
+Plug 'sheerun/vim-polyglot' " A collection of language packs.
 
 " Not working/untested:
 Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
@@ -31,10 +17,7 @@ call plug#end()
 
 " Configure status-line.
 
-" hunks gives a summary of changed hunks under soure control by integrating
-" with vim-gitgutter. It displays +, ~, and - and a count for each.
-"
-" branch integrates with fugitive/lawrencium to display the current branch
+" branch integrates with fugitive to display the current branch
 "  - you can configure no-branch text, truncate name, and custom formatting
 " %f Path to the file in the buffer, as typed or relative to current directory.
 " %r - readonly flag, text is "[RO]"
