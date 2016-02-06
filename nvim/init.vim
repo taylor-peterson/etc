@@ -1,5 +1,5 @@
 " =======
- Plugins
+" Plugins
 " =======
 
 call plug#begin()
@@ -7,6 +7,9 @@ call plug#begin()
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace (but not in insert mode).
 Plug 'airblade/vim-gitgutter' " git diff in the gutter; stage/revert hunks.
 Plug 'bling/vim-airline' " Status line.
+
+" Extra commands
+Plug 'tpope/vim-eunuch' " Syntactic sugar for unix shell commands inside vim.
 
 " Syntax
 Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
@@ -189,6 +192,3 @@ command! -bang Qa qall<bang>
 " also, linebreak and showbreak
 
 "set showmatch " When a bracket is inserted, jump to the matching one for matchtime
-
-"" Use :W to sudo-write the current buffer
-"command! W w !sudo dd of=%
