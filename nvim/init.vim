@@ -1,5 +1,5 @@
 " =======
-" Plugins
+ Plugins
 " =======
 
 call plug#begin()
@@ -168,6 +168,17 @@ call Disable('<Right>')
 
 :map <BS> <Del> " Allow <BS> to remove the last digit when entering a number (i.e. in 55G).
 
+" Correct common capitalization errors in commands, forwarding arguments as needed.
+command! -bang -nargs=? -complete=file E edit<bang> <args>
+command! -bang -nargs=? -complete=file W write<bang> <args>
+command! -bang -nargs=? -complete=file Wq wq<bang> <args>
+command! -bang -nargs=? -complete=file WQ wq<bang> <args>
+command! -bang Wa wall<bang>
+command! -bang WA wall<bang>
+command! -bang Q quit<bang>
+command! -bang QA qall<bang>
+command! -bang Qa qall<bang>
+
 " ====
 " TODO
 " ====
@@ -181,5 +192,3 @@ call Disable('<Right>')
 
 "" Use :W to sudo-write the current buffer
 "command! W w !sudo dd of=%
-
-" Make W, Q, WQ, wQ, Wq all work - perhaps use tpope's plugin?
