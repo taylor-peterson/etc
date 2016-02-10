@@ -30,8 +30,12 @@ set cursorline cursorcolumn " Turn on cursor cross-hairs.
 set laststatus=2 " Always display the status bar.
 set number relativenumber " Display absolute number on current line and relative on the rest.
 set showcmd " Display an incomplete command in the lower-right corner.
-set updatetime=250 " Milliseconds vim waits before updating gitgutter and swap file.
+set updatetime=500 " Milliseconds vim waits before updating gitgutter and swap file.
 set nowrap " Don't wrap lines longer than the window width.
+
+" Paren-matching
+set showmatch " When a paren/bracket is inserted, jump to the matching one for matchtime
+set matchtime=1 " Tenths of a second to show a match for.
 
 " Configure status-line.
 "   branch integrates with fugitive to display the current branch
@@ -185,10 +189,9 @@ command! -bang Qa qall<bang>
 " ====
 " TODO
 " ====
-" set autowrap width properly or turn off.
+set textwidth=0 " Don't automatically break lines.
+" TODO toggle textwidth reasonable in appropriate filetypyes
 " if leaving wrap on, consider breakindent which causes lines to be visually
 " indented the same amount as the beginning of that line to preserve blocks of
 " text
 " also, linebreak and showbreak
-
-"set showmatch " When a bracket is inserted, jump to the matching one for matchtime
