@@ -3,6 +3,7 @@
 ############################
 # This script does everything necessary to get a linux-box up and running my way by
 # installing the correct set of programs and configuring them.
+# Note: symlink everything under ~/ where possible to avoid affecting other users.
 ############################
 
 #### Make ~/ feel like home.
@@ -18,6 +19,7 @@ chmod +w ~/etc/user-dirs.dirs
 xdg-user-dirs-gtk-update
 
 #### Add sources
+# dunst memory-leak https://bugs.launchpad.net/ubuntu/+source/dunst/+bug/1330480
 echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" | \
     sudo tee -a /etc/apt/sources.list
 sudo add-apt-reposityory ppa:fcws-tw/ppa # vim

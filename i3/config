@@ -89,6 +89,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # Colors are based on default workspace colors for i3.
 # Note that bg-active only works when the active window:
 #     https://github.com/DaveDavenport/rofi/issues/294.
+# Now seems that it only won't highlight the terminal (but does change text color)
+# and that the window pops up on the opposite screen from the active one.
 set $rofi_options   -bg "#222222"   -bg-active "#1b3a51"   -bg-urgent "#900000" \
                   -hlbg "#285577" -hlbg-active "#285577" -hlbg-urgent "#285577" \
                     -fg "#888888"   -fg-active "#ffffff"   -fg-urgent "#ffffff" \
