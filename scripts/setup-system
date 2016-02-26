@@ -22,7 +22,6 @@ xdg-user-dirs-gtk-update
 # dunst memory-leak https://bugs.launchpad.net/ubuntu/+source/dunst/+bug/1330480
 echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" | \
     sudo tee -a /etc/apt/sources.list
-sudo add-apt-reposityory ppa:fcws-tw/ppa # vim
 sudo add-apt-repository -y "deb http://repository.spotify.com stable non-free"
 sudo apt-get --allow-unauthenticated install sur5r-keyring
 
@@ -73,6 +72,14 @@ git clone https://github.com/neovim/neovim.git
 cd neovim
 make
 sudo checkinstall
+
+# Install plug.vim
+~/.config/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Get my colors in place
+mkdir ~/.config/nvim/colors
+~/etc/nvim/petetay.vim ~/.config/nvim/colors/
 
 # Notification daemon for volume and brightness.
 sudo apt-get install libdbus-glib-1-dev
@@ -125,6 +132,7 @@ ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-gre
 ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 ln -s ~/etc/accounts-service/taylor /var/lib/AccountsService/users/taylor
 ln -s ~/etc/accounts-service/icons /var/lib/AccountsService/icons/taylor
+mkdir ~/.config/nvim
 ln -s ~/etc/nvim/init.vim ~/.config/nvim/init.vim
 
 rm ~/.profile

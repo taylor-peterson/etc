@@ -89,15 +89,6 @@ set shiftround " Round indent (<, >) to the next multiple of shiftwidth
 set expandtab " Insert spaces instead of tab characters.
               " Note that indenting will replace all tab characters on affected lines with spaces.
 
-" Enable file type detection and load the filetype's syntax highlighting,
-" indent, and plugin files if they exist.
-"
-" Plugins generally define an indentexpr to compute the indent of a line. When
-" defined and active, such an expression overrides all other indent methods
-" (obviating autoindent and smartindent). When not defined, plugins generally
-" append to cinoptions.
-filetype plugin indent on
-
 " Override some default cinoptions that control auto-indentation:
 "   L0 - Don't indent labels (prevents auto-indent of '::' operator.
 "   l1 - Align with a case label instead of the statement after it on same line.
