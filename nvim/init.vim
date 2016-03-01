@@ -46,7 +46,7 @@ set matchtime=1 " Tenths of a second to show a match for.
 "    - you can configure no-branch text, truncate name, and custom formatting
 "   %f Path to the file in the buffer, as typed or relative to current directory.
 "   %r - readonly flag, text is "[RO]"
-"   %c - column number
+"   %v - virtual column number (counts screen columns instead of characters - i.e. expands tabs)
 "   %p - percentage through file in lines
 call airline#parts#define_raw('column_number', '%c')
 function! AirlineInit()
@@ -54,7 +54,7 @@ function! AirlineInit()
     let g:airline_section_b = airline#section#create(['hunks'])
     let g:airline_section_c = airline#section#create(['%.100f']) " 100 characters max.
     let g:airline_section_gutter = airline#section#create(['readonly'])
-    let g:airline_section_z = airline#section#create(['%p%%', ' ', 'column_number'])
+    let g:airline_section_z = airline#section#create(['%p%%', ' ', '%v'])
     let g:airline_section_warning = airline#section#create(['whitespace'])
 endfunction
 autocmd User AirlineAfterInit call AirlineInit() " After plugin loads, but before it replaces statusline
@@ -111,6 +111,7 @@ set cinoptions=L0,l1,(0,u0,w1,Ws,ks,j1
 set mouse-=a " Disable the mouse.
 set undofile " Create <FILENAME>.un that persists undo information across close/reopen.
 set hidden " buffers become hidden when abandoned
+:nmap Y y$ " Make 'Y' behave like 'C' and 'D'
 autocmd BufNewFile,BufRead *.tpp  set syntax=cpp
 
 " Set completion mode for wildmenu command-line completion.
