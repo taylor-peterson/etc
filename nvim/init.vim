@@ -10,6 +10,7 @@ Plug 'bling/vim-airline' " Status line.
 
 " Extra commands
 Plug 'tpope/vim-eunuch' " Syntactic sugar for unix shell commands inside vim.
+Plug 'junegunn/vim-easy-align' " Alignment commands
 
 " Syntax
 Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
@@ -19,6 +20,9 @@ Plug 'sheerun/vim-polyglot' " A collection of language packs.
 Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
 Plug 'vim-scripts/EasyColour' " Alternate color scheme syntax.
 call plug#end()
+
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
 " =======
 " Display
