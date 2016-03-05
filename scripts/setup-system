@@ -91,11 +91,15 @@ cd i3blocks
 make clean all
 sudo checkinstall
 
+# rofi
+# github install instructions
+mkdir ~/.config/rofi
+ln -s ~/etc/rofi/config ~/.config/rofi/config
+
 #### Python packages
 
 # TODO make fortunes file.
 #### Install the rest from deb files.
-# https://launchpad.net/ubuntu/+archive/primary/+files/rofi_0.15.7-1_i386.deb
 URL='http://ankisrs.net/download/mirror/anki-2.0.33.deb'
 FILE=`mktemp`
 wget "$URL" -O $FILE

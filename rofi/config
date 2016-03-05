@@ -1,0 +1,10 @@
+! ------------------------------------------------------------------------------
+! ROFI Color theme - colors based on default i3 workspace colors
+! ------------------------------------------------------------------------------
+rofi.separator-style: solid
+rofi.hide-scrollbar: true
+rofi.color-enabled: true
+rofi.color-window: #222222, #333333, #000000
+rofi.color-normal: #222222, #888888, #222222, #285577, #ffffff
+rofi.color-active: #1b3a51, #ffffff, #1b3a51, #285577, #ffffff
+rofi.color-urgent: #900000, #ffffff, #900000, #285577, #ffffff
