@@ -9,13 +9,12 @@
 #### Make ~/ feel like home.
 mkdir -p ~/bin ~/etc ~/src ~/tmp
 
-rmdir -p ~/Desktop ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+rmdir ~/Desktop ~/Documents ~/Downloads ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
 rm -f examples.desktop
 
-rm ~/.config/user-dirs.dirs
-ln -s ~/etc/user-dirs.dirs ~/.config/user-dirs.dirs
-ln -s ~/etc/user-dirs.conf ~/.config/user-dirs.conf
-chmod +w ~/etc/user-dirs.dirs
+rm ~/.config/user-dirs.dirs ~/.config/user-dirs.conf
+ln -s ~/etc/user-dirs/user-dirs.dirs ~/.config/user-dirs.dirs
+ln -s ~/etc/user-dirs/user-dirs.conf ~/.config/user-dirs.conf
 xdg-user-dirs-gtk-update
 
 #### Add sources
@@ -31,7 +30,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886 
 #### Update to pull in the new sources.
 # TODO - switch to long form of flags and document
 sudo apt-get update -yqq
-sudo apt-get update --fix-missing
+sudo apt-get update --fix-missing -yqq
 sudo apt-get upgrade -yqq
 
 #### Install everything you can from apt.
@@ -46,8 +45,6 @@ sudo apt-get install -y \
     redshift \
     shutter \
     spotify-client \
-    tilda \
-    tmux \
     tree \
     wicd wicd-curses \
     xbacklight \
@@ -82,24 +79,43 @@ mkdir ~/.config/nvim/colors
 ~/etc/nvim/petetay.vim ~/.config/nvim/colors/
 
 # Notification daemon for volume and brightness.
-sudo apt-get install libdbus-glib-1-dev
+sudo apt-get install libdbus-glib-1-dev gtk+-2.0
 cd ~/bin
-git clone git clone git://github.com/hcchu/volnoti.git
+git clone git://github.com/hcchu/volnoti.git
 cd volnoti
 ./prepare.sh
 ./configure
 make
-sudo checkinstall
+sudo checkinstall # note you may need to manually enter a version number
 
 # i3 status bar
 sudo apt-get install ruby-ronn
+cd ~/bin
 git clone git://github.com/vivien/i3blocks
 cd i3blocks
 make clean all
 sudo checkinstall
+ln -s ~/etc/i3/i3blocks.conf ~/.i3blocks.conf
+
+# fonts
+wget https://github.com/chrissimpkins/codeface/releases/download/font-collection/codeface-fonts.tar.xz
+tar -xpvf codeface-fonts.tar.xz
+mv fonts/ ~/.fonts
+fc-cache -f -v
 
 # rofi
-# github install instructions
+cd ~/bin
+git clone https://github.com/DaveDavenport/rofi.git
+cd rofi
+git submodule update --init
+autoreconf -i
+mkdir build
+cd build
+sudo apt-get install libxinerama libxft2 libpango libpangocairo libcairo libcairo-xlib libglib2.0 libx11 libstartup-notification-1.0
+../configure
+make
+sudo checkinstall
+
 mkdir ~/.config/rofi
 ln -s ~/etc/rofi/config ~/.config/rofi/config
 
@@ -127,9 +143,10 @@ sudo apt-get autoremove -y
 
 #### Link all the things!
 # TODO - make smart based on file endings or some such
+mkdir ~/.config/i3
 ln -s ~/etc/i3/config ~/.config/i3/config
-ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-greeter-ubuntu.conf
-ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
+sudo ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-greeter-ubuntu.conf
+sudo ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
 ln -s ~/etc/accounts-service/taylor /var/lib/AccountsService/users/taylor
 ln -s ~/etc/accounts-service/icons /var/lib/AccountsService/icons/taylor
 mkdir ~/.config/nvim
