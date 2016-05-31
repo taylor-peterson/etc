@@ -2,17 +2,20 @@
 # personal development work - work machines require a
 # bit more love.
 #
-# The first line is the ID for the set of data.
-# -> it sets the name of the things that needs to be manipulated.
+# Everything that needs configuration on a new machine
+# should get a folder with any configuration information
+# and a setup.sls file.
 
 base:
   '*':
     - common
-    - user-dirs
-    - neovim
     - etc
-    - i3
-    - chrome
-    - spotify
+    - user-dirs.setup
+    - nvim.setup
+    - chrome.setup
+    - spotify.setup
+    - i3.setup
+    - rofi.setup
+    - volnoti.setup
   '*home*':
     - skype
