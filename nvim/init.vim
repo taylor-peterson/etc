@@ -2,11 +2,18 @@
 " Plugins
 " =======
 
+" Install vim-plug if it isn't present on the system, then install all active plugins.
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source ~/etc/nvim/init.vim | quit
+endif
+
 call plug#begin()
 " Informational display
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace (but not in insert mode).
 Plug 'airblade/vim-gitgutter' " git diff in the gutter; stage/revert hunks.
-Plug 'bling/vim-airline' " Status line.
+Plug 'vim-airline/vim-airline' " Status line.
 
 " Extra commands
 Plug 'tpope/vim-eunuch' " Syntactic sugar for unix shell commands inside vim.
@@ -15,6 +22,7 @@ Plug 'junegunn/vim-easy-align' " Alignment commands
 " Syntax
 Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
 Plug 'sheerun/vim-polyglot' " A collection of language packs.
+Plug 'saltstack/salt-vim' " Vim syntax for editing Salt files.
 
 " Not working/untested
 Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
