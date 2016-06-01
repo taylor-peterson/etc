@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+sudo apt-get install git
+git clone https://github.com/taylor-peterson/etc ~/etc
+
+curl -L https://bootstrap.saltstack.com | sudo sh
+
+sudo rm -rf /etc/salt
+sudo ln -s ~/etc/salt /etc/salt
+
+sudo salt-call --local state.apply

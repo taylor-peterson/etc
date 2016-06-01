@@ -4,7 +4,6 @@ pkgrepo reqs:
       - python-software-properties
       - python-pycurl
       - python-apt
-      - vim # Currently need vim to setup vim-plug: https://github.com/junegunn/vim-plug/issues/225
 
 neovim:
   pkgrepo.managed:

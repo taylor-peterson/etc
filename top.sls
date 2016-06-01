@@ -9,7 +9,6 @@
 base:
   '*':
     - common
-    - etc
     - user-dirs.setup
     - nvim.setup
     - chrome.setup
