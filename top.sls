@@ -16,5 +16,7 @@ base:
     - i3.setup
     - rofi.setup
     - volnoti.setup
+    - conky.setup
+    - anki.setup
   '*home*':
     - skype

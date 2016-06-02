@@ -14,3 +14,7 @@ file_client: local
 file_roots:
   base:
     - /home/vagrant/etc
+
+pillar_roots:
+  base:
+    - /home/vagrant/pillar

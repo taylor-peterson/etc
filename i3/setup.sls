@@ -2,7 +2,6 @@ extra packages:
   pkg.installed:
     - pkgs:
       - acpi
-      #- conky
 
 i3:
   pkg.installed:
