@@ -18,15 +18,15 @@ neovim:
 
 neovim-config:
   file.symlink:
-    - name: /home/vagrant/.config/nvim/init.vim
-    - target: /home/vagrant/etc/nvim/init.vim
+    - name: {{ salt['environ.get']('HOME') }}/.config/nvim/init.vim
+    - target: {{ salt['environ.get']('HOME') }}/etc/nvim/init.vim
     - force: True
     - backupname: inti.vim.old
     - makedirs: True
 
 neovim-colors:
   file.symlink:
-    - name: /home/vagrant/.config/nvim/colors/petetay.vim
-    - target: /home/vagrant/etc/nvim/petetay.vim
+    - name: {{ salt['environ.get']('HOME') }}/.config/nvim/colors/petetay.vim
+    - target: {{ salt['environ.get']('HOME') }}/etc/nvim/petetay.vim
     - force: True
     - makedirs: True

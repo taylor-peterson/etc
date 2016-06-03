@@ -9,5 +9,5 @@ anki:
       - anki: http://ankisrs.net/download/mirror/anki-2.0.33.deb
   file.symlink:
     - name: /usr/local/bin/anki
-    - target: /home/vagrant/anki/anki
+    - target: {{ salt['environ.get']('HOME') }}/anki/anki
     - force: True

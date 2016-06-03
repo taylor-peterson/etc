@@ -13,8 +13,8 @@ volnoti:
   git.latest:
     - name: https://github.com/davidbrazdil/volnoti
     - target: /tmp/volnoti
-    - unless: volnoti -h
+    - unless: command -v volnoti
   cmd.run:
     - cwd: /tmp/volnoti
-    - name: /home/vagrant/etc/volnoti/install.sh
-    - unless: volnoti -h
+    - name: {{ salt['environ.get']('HOME') }}/etc/volnoti/install.sh
+    - unless: command -v volnoti

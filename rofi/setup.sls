@@ -27,10 +27,10 @@ rofi:
     - unless: command -v rofi
   cmd.run:
     - cwd: /tmp/rofi
-    - name: /home/vagrant/etc/rofi/install.sh
+    - name: {{ salt['environ.get']('HOME') }}/etc/rofi/install.sh
     - unless: command -v rofi
   file.symlink:
-    - name: /home/vagrant/.config/rofi/config
-    - target: /home/vagrant/etc/rofi/config
+    - name: {{ salt['environ.get']('HOME') }}/.config/rofi/config
+    - target: {{ salt['environ.get']('HOME') }}/etc/rofi/config
     - force: True
     - makedirs: True

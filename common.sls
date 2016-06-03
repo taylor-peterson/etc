@@ -7,6 +7,7 @@ common-install:
       #- shutter
       - tree
       - xbacklight
+      - x11-xkb-utils # setxkbmap
       - xclip
       - zsh
 

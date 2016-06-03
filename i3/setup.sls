@@ -7,8 +7,8 @@ i3:
   pkg.installed:
     - name: i3
   file.symlink:
-    - name: /home/vagrant/.config/i3/config
-    - target: /home/vagrant/etc/i3/config
+    - name: {{ salt['environ.get']('HOME') }}/.config/i3/config
+    - target: {{ salt['environ.get']('HOME') }}/etc/i3/config
     - force: True
     - makedirs: True
 
@@ -18,8 +18,8 @@ i3blocks:
     - sources:
       - i3blocks: http://mirrors.kernel.org/ubuntu/pool/universe/i/i3blocks/i3blocks_1.4-1_amd64.deb
   file.symlink:
-    - name: /home/vagrant/.i3blocks.conf
-    - target: /home/vagrant/etc/i3/i3blocks.conf
+    - name: {{ salt['environ.get']('HOME') }}/.i3blocks.conf
+    - target: {{ salt['environ.get']('HOME') }}/etc/i3/i3blocks.conf
     - force: True
 
 # CLI for controlling media players over DBus
