@@ -1,4 +1,4 @@
-# TODO I haven't sorted out the greeter, etc. yet, so this is just a placeholder.
+# I haven't sorted out the greeter, etc. yet, so this is just a placeholder.
 #
 # sudo ln -s ~/etc/lightdm/lightdm-gtk-greeter-ubuntu.conf /etc/lightdm/lightdm-gtk-greeter-ubuntu.conf
 # sudo ln -s ~/etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf

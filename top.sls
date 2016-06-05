@@ -17,6 +17,7 @@ base:
     - rofi.setup
     - volnoti.setup
     - conky.setup
+    - fortune.setup # Put fortune in conky; bunch under i3?
     - anki.setup
   '*home*':
     - skype
