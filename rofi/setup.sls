@@ -26,7 +26,6 @@ rofi:
     - target: /tmp/rofi
     - unless: command -v rofi
   cmd.run:
-    - cwd: /tmp/rofi
     - name: {{ salt['environ.get']('HOME') }}/etc/rofi/install.sh
     - unless: command -v rofi
   file.symlink:

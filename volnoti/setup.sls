@@ -15,6 +15,5 @@ volnoti:
     - target: /tmp/volnoti
     - unless: command -v volnoti
   cmd.run:
-    - cwd: /tmp/volnoti
     - name: {{ salt['environ.get']('HOME') }}/etc/volnoti/install.sh
     - unless: command -v volnoti

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd /tmp/volnoti
 
 ./prepare.sh
 ./configure --prefix=/usr
