@@ -147,4 +147,4 @@ $endif\
 #--- Fortunes ---#
 ${font Arial:bold:size=10}${color Tan1}FORTUNE ${voffset -2}${hr 2}
 ${voffset 5}${font}${color DimGray}\
-${execi 60 fortune ~/etc/fortune/fortune -sn 300|fold -bsw 55}
+${execi 60 fortune ~/etc/conky/fortune/fortune -sn 300|fold -bsw 55}

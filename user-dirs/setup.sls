@@ -37,6 +37,15 @@ Set /tmp to be the downloads folder and prevent default directory recreation:
     - makedirs: True
     - backupname: user-dirs.dirs.old
 
+Manage the user-dirs.conf file so we can trigger on changes to it:
+  file.managed:
+    - name: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.conf
+
+Manage the user-dirs.dirs file so we can trigger on changes to it:
+  file.managed:
+    - name: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.dirs
+
+
 Update directory settings whenever config files change:
   pkg.installed:
     - pkgs:
@@ -44,5 +53,5 @@ Update directory settings whenever config files change:
   cmd.run:
     - name: xdg-user-dirs-gtk-update
     - onchanges:
-      - file: {{ salt['environ.get']('HOME') }}/.config/user-dirs.conf
-      - file: {{ salt['environ.get']('HOME') }}/.config/user-dirs.dirs
+      - file: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.conf
+      - file: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.dirs

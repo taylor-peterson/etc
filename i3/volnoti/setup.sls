@@ -15,5 +15,5 @@ volnoti:
     - target: /tmp/volnoti
     - unless: command -v volnoti
   cmd.run:
-    - name: {{ salt['environ.get']('HOME') }}/etc/volnoti/install.sh
+    - name: {{ salt['environ.get']('HOME') }}/etc/i3/volnoti/install.sh
     - unless: command -v volnoti

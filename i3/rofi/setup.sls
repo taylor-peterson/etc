@@ -26,10 +26,10 @@ rofi:
     - target: /tmp/rofi
     - unless: command -v rofi
   cmd.run:
-    - name: {{ salt['environ.get']('HOME') }}/etc/rofi/install.sh
+    - name: {{ salt['environ.get']('HOME') }}/etc/i3/rofi/install.sh
     - unless: command -v rofi
   file.symlink:
-    - name: {{ salt['environ.get']('HOME') }}/.config/rofi/config
-    - target: {{ salt['environ.get']('HOME') }}/etc/rofi/config
+    - name: {{ salt['environ.get']('HOME') }}/.config/i3/rofi/config
+    - target: {{ salt['environ.get']('HOME') }}/etc/i3/rofi/config
     - force: True
     - makedirs: True

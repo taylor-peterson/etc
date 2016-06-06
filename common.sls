@@ -2,7 +2,6 @@ common-install:
   pkg.installed:
     - pkgs:
       - curl
-      - git
       #- redshift
       #- shutter
       - tree
