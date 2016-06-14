@@ -1,0 +1,30 @@
+# Sources:
+#   https://lambdaops.com/automation/travis/travis%20ci/configuration%20management/continuous%20integration/salt/chef/saltstack/salt%20stack/2014/01/29/travis-for-salt-states/
+#   http://blog.yourlabs.org/post/118987515453/testing-saltstack-formulas-on-travis-ci
+
+language: python # Chosen semi-arbitrarily because salt runs on python.
+python:
+  - '2.7'
+
+env:
+  global:
+    - SALT_ARGS="-l debug --local --retcode-passthrough"
+
+install:
+  - curl -L https://raw.githubusercontent.com/taylor-peterson/etc/master/scripts/bootstrap | bash
+
+  # Debug help - show logs and what kind of travis box we're on.
+  - sudo cat /var/log/salt/*
+  - sudo salt-call grains.items --local
+
+script:
+  # Make sure the states parse correctly.
+  - sudo salt-call state.show_highstate $SALT_ARGS
+
+  # Make sure the states apply correctly.
+  - sudo salt-call state.apply $SALT_ARGS
+
+  # Make sure the states are indempotent.
+  - sudo salt-call state.apply $SALT_ARGS
+  - cat /tmp/second
+  - bash -c '! grep -q "^Not Run:" /tmp/second'
