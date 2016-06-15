@@ -2,6 +2,9 @@
 #   https://lambdaops.com/automation/travis/travis%20ci/configuration%20management/continuous%20integration/salt/chef/saltstack/salt%20stack/2014/01/29/travis-for-salt-states/
 #   http://blog.yourlabs.org/post/118987515453/testing-saltstack-formulas-on-travis-ci
 
+sudo: required
+dist: trusty
+
 language: python # Chosen semi-arbitrarily because salt runs on python.
 python:
   - '2.7'
