@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt-get install git
+sudo apt-get install git --assume-yes
 git clone https://github.com/taylor-peterson/etc ~/etc
 
 curl -L https://bootstrap.saltstack.com | sudo sh
