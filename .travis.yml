@@ -16,10 +16,6 @@ env:
 install:
   - curl -L https://raw.githubusercontent.com/taylor-peterson/etc/master/scripts/bootstrap | bash
 
-  # Debug help - show logs and what kind of travis box we're on.
-  - sudo cat /var/log/salt/*
-  - sudo salt-call grains.items --local
-
 script:
   # Make sure the states parse correctly.
   - sudo salt-call state.show_highstate $SALT_ARGS
