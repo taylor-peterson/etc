@@ -1,5 +1,7 @@
 # etc
 
+[![Build Status](https://travis-ci.org/taylor-peterson/etc.svg?branch=master)](https://travis-ci.org/taylor-peterson/etc)
+
 To create an issue for:
 
 1. Evaluating a plugin - http://issuetemplate.com/#/taylor-peterson/etc/evaluate-plugin
