@@ -16,3 +16,4 @@ base:
     - i3.setup
     - conky.setup
     - anki.setup
+    - travis.setup
