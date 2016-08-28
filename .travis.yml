@@ -13,8 +13,7 @@ env:
   global:
     - SALT_ARGS="-l debug --local --retcode-passthrough"
 
-install:
-  - curl -L https://raw.githubusercontent.com/taylor-peterson/etc/master/scripts/bootstrap | bash
+install: ./scripts/bootstrap
 
 script:
   # Make sure the states parse correctly.
