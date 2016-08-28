@@ -6,7 +6,7 @@ anki.dependencies:
 anki:
   pkg.installed:
     - sources:
-      - anki: http://ankisrs.net/download/mirror/anki-2.0.33.deb
+      - anki: http://ankisrs.net/download/mirror/anki-2.0.36.deb
   file.symlink:
     - name: /usr/local/bin/anki
     - target: {{ salt['environ.get']('HOME') }}/etc/anki/anki

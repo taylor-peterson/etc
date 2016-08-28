@@ -40,11 +40,12 @@ Set /tmp to be the downloads folder and prevent default directory recreation:
 Manage the user-dirs.conf file so we can trigger on changes to it:
   file.managed:
     - name: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.conf
+    - replace: False
 
 Manage the user-dirs.dirs file so we can trigger on changes to it:
   file.managed:
     - name: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.dirs
-
+    - replace: False
 
 Update directory settings whenever config files change:
   pkg.installed:
