@@ -24,6 +24,8 @@ Plug 'PotatoesMaster/i3-vim-syntax' " Vim syntax file for i3 config file.
 Plug 'sheerun/vim-polyglot' " A collection of language packs.
 Plug 'saltstack/salt-vim' " Vim syntax for editing Salt files.
 
+Plug 'tmhedberg/SimpylFold' " Python code folding
+
 " Not working/untested
 Plug 'nathanaelkane/vim-indent-guides' " Highlight syntactic indent levels in alternating colors.
 Plug 'vim-scripts/EasyColour' " Alternate color scheme syntax.
@@ -55,17 +57,17 @@ set matchtime=1 " Tenths of a second to show a match for.
 "   %f Path to the file in the buffer, as typed or relative to current directory.
 "   %r - readonly flag, text is "[RO]"
 "   %v - virtual column number (counts screen columns instead of characters - i.e. expands tabs)
-"   %p - percentage through file in lines
-call airline#parts#define_raw('column_number', '%c')
-function! AirlineInit()
-    let g:airline_section_a = airline#section#create(['mode', 'paste'])
-    let g:airline_section_b = airline#section#create(['hunks'])
-    let g:airline_section_c = airline#section#create(['%.100f']) " 100 characters max.
-    let g:airline_section_gutter = airline#section#create(['readonly'])
-    let g:airline_section_z = airline#section#create(['%p%%', ' ', '%v'])
-    let g:airline_section_warning = airline#section#create(['whitespace'])
-endfunction
-autocmd User AirlineAfterInit call AirlineInit() " After plugin loads, but before it replaces statusline
+""   %p - percentage through file in lines
+"call airline#parts#define_raw('column_number', '%c')
+"function! AirlineInit()
+"    let g:airline_section_a = airline#section#create(['mode', 'paste'])
+"    let g:airline_section_b = airline#section#create(['hunks'])
+"    let g:airline_section_c = airline#section#create(['%.100f']) " 100 characters max.
+"    let g:airline_section_gutter = airline#section#create(['readonly'])
+"    let g:airline_section_z = airline#section#create(['%p%%', ' ', '%v'])
+"    let g:airline_section_warning = airline#section#create(['whitespace'])
+"endfunction
+"autocmd User AirlineAfterInit call AirlineInit() " After plugin loads, but before it replaces statusline
 
 " Replace whitespace characters (list) with a specified set of alternates (listchars).
 "   eol:c      - Char to show at the end of each line: c=<unused>.

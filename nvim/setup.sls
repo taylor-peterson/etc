@@ -21,7 +21,7 @@ neovim-config:
     - name: {{ salt['environ.get']('HOME') }}/.config/nvim/init.vim
     - target: {{ salt['environ.get']('HOME') }}/etc/nvim/init.vim
     - force: True
-    - backupname: inti.vim.old
+    - backupname: init.vim.old
     - makedirs: True
 
 neovim-colors:

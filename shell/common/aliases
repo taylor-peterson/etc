@@ -29,6 +29,10 @@ alias ip="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias mkdir="mkdir -pv" # Make recursive dir creation default
 alias ..="cd .."
 
+# Command Replacements
+alias vi="nvim"
+alias vim="nvim"
+
 # Conditionals for aliasing on specific shells
 if [ -n "$ZSH_VERSION" ]; then
     # Default Opener

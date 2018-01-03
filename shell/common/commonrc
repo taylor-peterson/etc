@@ -1,7 +1,8 @@
 # Shell-agnostic settings.
-source aliases
-source env
-source functions
-source path
-source prompt
-source ~/.local-overrides
+scriptdir=~/etc/shell/common
+source ${scriptdir}/aliases
+source ${scriptdir}/env
+source ${scriptdir}/functions
+source ${scriptdir}/path
+source ${scriptdir}/prompt
+#source ~/.local-overrides

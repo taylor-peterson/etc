@@ -9,18 +9,28 @@ rofi:
       - libc6
       - libcairo2
       - libpango-1.0-0
+      - libharfbuzz0b
+      - libharfbuzz-dev
+      - libpango1.0-dev
       - libpangocairo-1.0-0
+      - librsvg2-dev
+     # - check - 0.11 not on 14.04
       - libstartup-notification0-dev
       - libx11-6
       - libxcb-ewmh-dev
-      - libxcb-icccm4
-      - libxcb-xinerama0
+      - libxcb-icccm4-dev
+      - libxcb-xinerama0-dev
+      - libxcb-randr0-dev
+      # also need libxcb-xrm-dev, which isn't available on 14.04 - need to build from source
       - libxcb-xkb-dev
       - libxcb1
       - libglib2.0-0
+      - libglib2.0-dev
       - libxcb-util0-dev
       - libxkbcommon-x11-dev
       - libx11-xcb-dev
+      - flex # may need to get from backports repo on 14.04
+      - bison
   git.latest:
     - name: https://github.com/DaveDavenport/rofi
     - target: /tmp/rofi

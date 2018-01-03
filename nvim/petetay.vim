@@ -12,7 +12,7 @@ let colors_name = "petetay"
 "Highlight trailing text
 hi ExtraWhitespace                 ctermbg=darkred
 " Highlight 'eol', 'extends' and 'preceeds'
-hi NonText	ctermfg=yellow       ctermbg=none      cterm=none
+hi NonText	ctermfg=240       ctermbg=none      cterm=none
 " Highlight 'nbsp', 'space', 'tab', and 'trail'
 hi SpecialKey	ctermfg=238     ctermbg=none      cterm=none
 
@@ -52,16 +52,16 @@ hi Title	ctermfg=magenta        ctermbg=none      cterm=bold
 hi Directory	ctermfg=cyan           ctermbg=none      cterm=none
 
 " Visual Mode Selection
-hi Visual	ctermfg=lightblue      ctermbg=fg        cterm=reverse
+hi Visual	ctermfg=darkblue      ctermbg=fg        cterm=reverse
 
 " Search
 hi Search	ctermfg=white          ctermbg=darkblue  cterm=underline
 hi IncSearch 	ctermfg=darkblue       ctermbg=gray      cterm=none
 
 " Window seperator lines
-hi StatusLine	ctermfg=blue           ctermbg=gray      cterm=none
-hi StatusLineNC	ctermfg=black          ctermbg=gray      cterm=none
-hi VertSplit	ctermfg=black          ctermbg=gray      cterm=none
+hi StatusLine	ctermfg=black          ctermbg=240      cterm=none
+hi StatusLineNC	ctermfg=black          ctermbg=240      cterm=none
+hi VertSplit	ctermfg=black          ctermbg=240      cterm=none
 
 " Folding - keep different from status lines or splits might be confusing.
 hi Folded	ctermfg=darkgrey       ctermbg=black     cterm=bold

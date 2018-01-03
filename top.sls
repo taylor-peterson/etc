@@ -9,11 +9,11 @@
 base:
   '*':
     - common
-    - user-dirs.setup
+#    - user-dirs.setup
     - nvim.setup
-    - chrome.setup
-    - spotify.setup
+#    - chrome.setup
+#    - spotify.setup
     - i3.setup
     - conky.setup
-    - anki.setup
-    - travis.setup
+#    - anki.setup
+#    - travis.setup

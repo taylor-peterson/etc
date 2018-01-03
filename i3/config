@@ -2,28 +2,7 @@
 # TODO it is possible to mark windows like lines in vim - investigate further - documentation is unclear
 # TODO closing lid does nothing when powered, but suspends otherwise.
 # TODO low-power notification
-
-# TODO Update the below and add charts for chords
-# ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
-# │     │  w1 │  w2 │  w3 │  w4 │  w5 │  w6 │  w7 │  w8 │  w9 │  w10│     │     ┃          ┃
-# │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
-# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┯━━━━━━━┩
-# ┃        ┃     │close│     │rsize│     │     │ prev│ next│split│start│     │ }   │ |     │
-# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   │ \     │
-# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┪
-# ┃         ┃ tab │stack│ div.│ full│     │     │focus│focus│focus│focus│     ┃New Terminal┃
-# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h   │ j ← │ k ↓ │ l ↑ │ ; → │ '   ┃ ⏎          ┃
-# ┣━━━━━━━━━┻━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┻━━━━━━━━━━━━┫
-# ┃            ┃     │     │     │     │bordr│     │     │     │     │     ┃               ┃
-# ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
-# ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
-# ┃       ┃ *mod* ┃       ┃         tiling/floating toggle ┃       ┃       ┃       ┃       ┃
-# ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
-# ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
-
-# NOTE: run xev and press keys to get keycodes.
 # TODO floating_modifier to allow dragging flating windows with mouse?
-# TODO dmenu vs rofi vs alternative?
 # TODO setup monitors automatically (including collapsing workspaces when unplugged)
 # TODO shortcut in resize mode to equally split the screen
 
@@ -55,7 +34,7 @@ font pango: Monospace 9
 # Makes it so that $mod+<current workspace> switches you back to the previous workspace.
 workspace_auto_back_and_forth yes
 
-# Switching to a workpsace with an urgent hint may auto-focus on that window and remove the hint.
+# Switching to a workspace with an urgent hint may auto-focus on that window and remove the hint.
 # This delays resetting the urgency state to make it easier to identify the hinting window.
 force_display_urgency_hint 500 ms
 
@@ -260,6 +239,7 @@ bindsym XF86AudioNext exec dbus-send --print-reply \
 # for_window [isntace=blah] sticky enable
 
 
+# TODO lock screen doesn't save username
 set $mode_system System (l) lock, (e) logout, (h) hibernate, (s) suspend, (r) reboot, (p) power-off
 bindsym $mod+Escape mode "$mode_system"
 mode "$mode_system" {
