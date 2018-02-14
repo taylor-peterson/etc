@@ -38,7 +38,7 @@ xmap ga <Plug>(EasyAlign)
 " Display
 " =======
 
-call matchadd('ColorColumn', '\%>100v', -1) " Highlight (low-priority) column 100+.
+call matchadd('ColorColumn', '\%>120v', -1) " Highlight (low-priority) column 120+.
 colors petetay " Use my custom colorscheme.
 set cursorline cursorcolumn " Turn on cursor cross-hairs.
 set laststatus=2 " Always display the status bar.
