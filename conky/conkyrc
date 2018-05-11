@@ -5,10 +5,9 @@
 # Version : v0.1
 # License : Distributed under the terms of GNU GPLv2 or later (due to conkyrc_seamod).
 #
-# Inspiration from conkyrc_seamod, a post from linuxowns, and flair weather. Icons from Harmattan.
+# Inspiration from conkyrc_seamod and a post from linuxowns. Icons from Harmattan.
 #     conkyrc_seamod:    http://kde-look.org/content/show.php?content=148718
 #     linux_owns:        https://linuxowns.wordpress.com/2008/04/04/create-a-custum-conky-setup/
-#     flair_weather:     http://gnome-look.org/content/show.php/Flair+Weather+Conky?content=168749
 #     harmattan:         http://zagortenay333.deviantart.com/art/Conky-Harmattan-426662366
 #==================================================================================================
 
@@ -106,35 +105,6 @@ ${fs_bar 5,140 /home}                                                        ${g
 /data ${goto 45} ${fs_used /home/taylor/Data} / ${fs_size /home/taylor/Data} ${goto 160}${font 123:bold:size=8}Up:${font}
 ${fs_bar 5,140 /home/taylor/Data}                                            ${goto 160}  ${upspeed wlan0}/s
                                                                                 ${goto 220}${voffset -28}${upspeedgraph wlan0 20,80 222222 ffa54f -t -l}\
-
-#--- Weather ---#
-${font Arial:bold:size=10}${color Tan1}WEATHER ${voffset -2}${hr 2}
-${voffset 5}${font}${color DimGray}\
-# Set WOEID (Location ID)
-${execi 300 curl -s "http://weather.yahooapis.com/forecastrss?w=12798953&u=c" -o ~/.cache/weather.xml}\
-# Temperature
-Temp: ${execi 300 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}°C
-Wind: ${execi 300 grep "yweather:wind" ~/.cache/weather.xml|grep -o "speed=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"} km/hr
-# Sunrise/Sunset
-${voffset -25}\
-${alignr}Sunrise: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunrise=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"}
-${alignr}Sunset: ${execi 300 grep "yweather:astronomy" ~/.cache/weather.xml|grep -o "sunset=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*"}
-# Day Labels
-${voffset 5}${goto 18}Today ${goto 84}Tomorrow ${goto 152}Overmorrow ${goto 230}Ubermorrow
-#--- Weather Icons ---#
-${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m1 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-1.png}${image ~/.cache/weather-1.png -p 15,446 -s 44x44}
-${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m2 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-2.png}${image ~/.cache/weather-2.png -p 90,446 -s 44x44}
-${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m3 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-3.png}${image ~/.cache/weather-3.png -p 165,446 -s 44x44}
-${execi 300 cp -f ~/etc/conky/weatherIcons/$(grep -m4 "weather:forecast" ~/.cache/weather.xml|tail -n1|grep -o "code=\"[^\"]*\""|grep -o "\"[^\"]*\""|grep -o "[^\"]*").png ~/.cache/weather-4.png}${image ~/.cache/weather-4.png -p 240,446 -s 44x44}
-#--- High/Low Temperatures ---#
-${goto 17}${execi 300 grep -m1 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
-${execi 300 grep -m1 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
-${goto 92}${execi 300 grep -m2 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
-${execi 300 grep -m2 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
-${goto 167}${execi 300 grep -m3 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
-${execi 300 grep -m3 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°\
-${goto 244}${execi 300 grep -m4 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "high=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°/\
-${execi 300 grep -m4 "yweather:forecast" ~/.cache/weather.xml | tail -n1| grep -o "low=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*" | awk 'NR==1'}°
 
 #--- Music ---#
 ${if_running spotify}\
