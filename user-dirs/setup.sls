@@ -56,3 +56,7 @@ Update directory settings whenever config files change:
     - onchanges:
       - file: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.conf
       - file: {{ salt['environ.get']('HOME') }}/etc/user-dirs/user-dirs.dirs
+
+Get rid of Desktop window while launching Nautilus in i3
+  cmd.run:
+    - name: gsettings set org.gnome.desktop.background show-desktop-icons false
